@@ -8,9 +8,6 @@ using namespace std;
   int reroll;
 
 };
-
-
-
 void Roll(struct node* dice)
 {
   int dynoCheck = dice->roll;
@@ -18,12 +15,8 @@ void Roll(struct node* dice)
   if(dynoCheck != 2 && rerollCheck < 3 )
   {
     dice->roll = rand() % 6 + 1;
-  }
-
-  
+  }  
 }
-
-
 void turn(struct node* diceCup)
 {
   int quote;
@@ -33,57 +26,35 @@ void turn(struct node* diceCup)
   {
     while(diceCup+k.reroll < 3)
     {
-    Roll(diceCup+k);
-    quote = (diceCup+k)->roll;
-    switch(quote)
-    {
-      case 1: cout << endl << "Player rolled an arrow"; // show dice with for loop possibly
-        break;
-      case 2: cout << endl << "Player rolled a dynomite";
-        break;
-      case 3: cout << endl << "Player rolled one shot";
-        break;
-      case 4: cout << endl << "Player rolled two shots";
-        break;
-      case 5: cout << endl << "Player rolled a gatling gun";
-        break;
-      case 6: cout << endl << "Player rolled a beer";
-        break;
-      
+      Roll(diceCup+k);
+      quote = (diceCup+k)->roll;
+      switch(quote)
+      {
+        case 1: cout << endl << "Player rolled an arrow"; // show dice with for loop possibly
+          break;
+        case 2: cout << endl << "Player rolled a dynomite";
+          break;
+        case 3: cout << endl << "Player rolled one shot";
+          break;
+        case 4: cout << endl << "Player rolled two shots";
+          break;
+        case 5: cout << endl << "Player rolled a gatling gun";
+          break;
+        case 6: cout << endl << "Player rolled a beer";
+          break;
+      }
     }
-
-    
-
-
-
-    }
-
   }
-
-
 }
-
 void Reroll()
 {
-
   int checkRoll;
   checkRoll = rand() % 2;
   if((diceCup+k)->roll != 2 && checkRoll == 0 && (diceCup+k).reroll < 3)
   {
       cout << endl << "Player will reroll this dice"
-
   }
-
-
 }*/
-
-
-
-
-
-
-
-
 void initialRoll(int* diceCup)
 {
   int* dice;
@@ -91,14 +62,10 @@ void initialRoll(int* diceCup)
   {
     dice = diceCup + k;
     *dice = rand() %6 + 1;
-    
-
-
   }
   for(int i = 0; i < 6 ; i++)
     cout << endl << "player rolled a " << *(diceCup+i) << " on dice " << i+1;
 }
-
 void rerolls(int* diceCup)
 {
   int* dice;
@@ -115,15 +82,9 @@ void rerolls(int* diceCup)
         cout << endl << "player rerolled a " << *(diceCup+k) << " on dice " << k+1;
       }
       // any code past this point in the function is to apply the dice effects per turn
-
-      
-
-
     }
-
   }
 }
-
 int main()
 {
   int endTurn = 0;
@@ -136,17 +97,10 @@ int main()
       endTurn++;
     if(*(diceCup+k) == 1 )
       //player needs to take an arrow
-
-    
     if(endturn >= 3)
       //end the players turn implement at end of the roll
-    
-    
   }
   cout << endl;
   rerolls(diceCup);
-  //after rerolls apply the other dice accordingly 
-  
-  
-  
+  //after rerolls apply the other dice accordingly  
 }
