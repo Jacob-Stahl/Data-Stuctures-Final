@@ -1,17 +1,12 @@
 #include <iostream>
-
 #include "doubleLL.h"
-
-typedef struct player{
-    //player *next, *prev;
-    int arrow, hP, maxHP;
-    int roll[5];
-}Player;
-
+#include "player.h"
 
 using namespace std;
 
+Node* generateGame()
 int main() {
+
     int numPlayers;
     cout << "Number of players: ";
     cin >> numPlayers;
