@@ -1,27 +1,16 @@
-//
-// Created by Troll on 10/11/2019.
-//
 #include <cstdio>
-#include<cstdlib>
+#include <cstdlib>
 #include <iostream>
 #include "doubleLL.h"
-
+#include "player.h"
 using namespace std;
 
-
-LinkedList create() {
-    LinkedList list;
-    list = new listHead;
-    list->head = NULL;
-    return list;
-}
-
-void addNodeEnd(LinkedList list, int data) {
+void addNodeEnd(LinkedList list, Player player) {
     Node *temp;
     if (isEmpty(list)) {
         temp = new Node;
         temp->next = NULL;
-        temp->data = data;
+        temp->data = player;
         temp->prev = NULL;
         list->head = temp;
     } else {
@@ -37,10 +26,10 @@ void addNodeEnd(LinkedList list, int data) {
     }
 }
 
-void addNodeBegin(LinkedList list, int data) {
+void addNodeBegin(LinkedList list, Player player) {
     Node *temp1 = list->head;
     Node *temp2;
-    temp2->data = data;
+    temp2->data = player;
     temp2->next = temp1;
     temp2->prev = NULL;
     list->head = temp2;
@@ -56,17 +45,6 @@ void delEndNode(LinkedList list) {
         temp->prev->next = NULL;
         free(temp);
     }
-}
-
-void printList(LinkedList list) {
-    Node *temp = list->head;
-    cout << "your List: ";
-    while (temp != NULL) {
-        cout << temp->data << "\t";
-        temp = temp->next;
-    }
-    cout << endl;
-
 }
 
 int isEmpty(LinkedList list) {
@@ -86,9 +64,3 @@ Node *reverseList(Node *temp) {
         return temp;
     return reverseList(temp->prev);
 }
-
-
-
-
-
-
