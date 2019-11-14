@@ -3,6 +3,8 @@
 using namespace std;
 #ifndef ROLL_H
 #define ROLL_H
+
+enum Roll{arrow, dynamite, oneShot, twoShot, beer, gatGun};
 /*struct node
 {
   int roll;
