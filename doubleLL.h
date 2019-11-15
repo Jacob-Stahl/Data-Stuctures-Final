@@ -5,17 +5,19 @@
 #ifndef LAB_5_DOUBLELL_H
 #define LAB_5_DOUBLELL_H
 
-struct Node 
+struct Node
 {
     Player* data;
     Node* next;
     Node* prev;
 };
 
+// returns new Node
+Node* getNewNode(void);
 // add node to next position
-void addNodeNext(Node* top);
+void addNodeNext(Node* top, Node* newNode);
 // add node to previous position
-void addNodePrev(Node* top);
+void addNodePrev(Node* top, Node* newNode);
 // recursive helper function used by pprint
 void pprint_helper(Node* start, Node* current);
 // prints all nodes and player data
@@ -54,38 +56,37 @@ void deleteNode(Node* top, int pos)
     free(top);
   }
 }
-void addNodeNext(Node* top)
+void addNodeNext(Node* top, Node* newNode)
 {
   if (top != NULL)
   {
-    Node* newNode;
     Node* temp = top->next;
-    newNode = getNewNode();
-    if(top == top->next)
+    if(top != top->next)
     {
-      newNode->next = newNode->prev = top;
-      top->next = top->prev = newNode;
-    }
-    else
-    {
+      std::cout << "list size > 1" << std::endl;
       temp->prev = newNode;
       newNode->next = temp;
       top->next = newNode;
       newNode->prev = top;
     }
+    else
+    {
+      std::cout << "list size 1" << std::endl;
+      newNode->next = newNode->prev = top;
+      top->next = top->prev = newNode;
+    }
   }
   else
   {
+    std::cout << "top == null" << std::endl;
     top = getNewNode();
   }
 }
-void addNodePrev(Node* top)
+void addNodePrev(Node* top, Node* newNode)
 {
   if (top != NULL)
   {
-    Node* newNode;
     Node* temp = top->prev;
-    newNode = getNewNode();
     if(top == top->next)
     {
       newNode->next = newNode->prev = top;
@@ -133,7 +134,6 @@ void pprint_helper(Node* start, Node* current)
     pprint_helper(start, current->next);
   }
 }
-
 void validateList(Node* top)
 {
   std::cout << top->prev << "   ";

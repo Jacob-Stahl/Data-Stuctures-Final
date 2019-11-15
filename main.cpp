@@ -61,7 +61,7 @@ Node* generateGame(int numPlayers)
   top->data = first;
 
   cout << "adding first Node to list" << endl;
-	addNodeNext(top);
+	addNodeNext(top, first);
 
   cout << "added sheriff" << endl;
 	switch (numPlayers)
@@ -138,9 +138,8 @@ Node* generateGame(int numPlayers)
 		}
     role_arr[j] -= 1;
     newNode->data = newPlayer;
-		addNodeNext(newNode);
-    newNode = NULL;
+		addNodeNext(top, newNode);
+    cout << newNode << endl;
 	}
 	return top;
 }
-
