@@ -16,24 +16,24 @@ struct Node
 // INPUT PARAMETERS: Linked list h, int data
 // OUTPUT: Na
 // PURPOSE: Adds a node to end end of a given linked list
-void addNodeEnd(Node h, Player player);
+void addNodeEnd(Node* list, Player* player);
 // NAME : addNodeBegin
 // INPUT PARAMETERS: Linked list h, int data
 // OUTPUT: Na
 // PURPOSE: Adds a node to beginning end of a given linked list
-void addNodeBegin(Node h, Player player);
+void addNodeBegin(Node* list, Player* player);
 // NAME : isEmpty
 // INPUT PARAMETERS: Linked list h
 // OUTPUT: int
 // PURPOSE: returns 1 if the list is empty and 0 if not
 
-int isEmpty(Node* h);
+int isEmpty(Node* list);
 // NAME : delEndNode
 // INPUT PARAMETERS: LinkedList h
 // OUTPUT: na
 // PURPOSE: deletes end node of list
 
-void delEndNode(Node* h);
+void delEndNode(Node* list);
 // NAME : reverseList
 // INPUT PARAMETERS: Node *temp
 // OUTPUT: Node *
@@ -41,7 +41,7 @@ void delEndNode(Node* h);
 
 Node* reverseList(Node* temp);
 
-void addNodeEnd(Node list, Player player) {
+void addNodeEnd(Node* list, Player* player) {
 	Node *temp;
 	if (isEmpty(list)) {
 		temp = new Node;
@@ -63,7 +63,7 @@ void addNodeEnd(Node list, Player player) {
 	}
 }
 
-void addNodeBegin(Node list, Player player) {
+void addNodeBegin(Node* list, Player* player) {
 	Node *temp1 = list->head;
 	Node *temp2;
 	temp2->data = player;
@@ -72,7 +72,7 @@ void addNodeBegin(Node list, Player player) {
 	list->head = temp2;
 }
 
-void delEndNode(Node list) {
+void delEndNode(Node* list) {
 	Node *temp1;
 	if (!isEmpty(list)) {
 		Node *temp = list->head;
@@ -84,7 +84,7 @@ void delEndNode(Node list) {
 	}
 }
 
-int isEmpty(Node list) {
+int isEmpty(Node* list) {
 	if (list->head == NULL) {
 		return 1;
 	}
