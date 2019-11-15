@@ -9,8 +9,6 @@ using namespace std;
 
 int diceCup[6];
 
-
-
 //initall roll of the dice takes an array of ints and randomly rolls them and displays what was rolled
 void roll(int* dP)
 {
@@ -42,8 +40,6 @@ void roll(int* dP)
     cout << endl << "player rolled a " << action << " on dice " << i+1;
   }
 }
-
-
 //serperate function to test for reroll easier to implement the displaying of what a person rerolled this way ANDREW >:(
 void reroll(int* dP, int* test)
 {
@@ -78,9 +74,6 @@ void reroll(int* dP, int* test)
   }
   
 }
-
-
-
 /*int main()
 {
   int test[] = {1,1,0,1,0,1};

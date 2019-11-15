@@ -5,6 +5,38 @@
 using namespace std;
 
 int TOTAL_ARROWS = 0;
+
+// generates double circular linked list of nodes, returns the sheriff at the startinf position
+Node* generateGame(int numPlayers);
+// returns new Player
+Player* getNewPlayer();
+
+int main() 
+{
+
+    int numPlayers;
+    Node* top;
+    cout << "Number of players: ";
+    cin >> numPlayers;
+    top = generateGame(numPlayers);
+
+    cout << "game generated" << endl;
+
+    validateList(top);
+
+    cout << "printing game" << endl;
+    pprint(top);
+    return 0;
+}
+Player* getNewPlayer()
+{
+  Player* newPlayer = new Player;
+  newPlayer->health = 8;
+	newPlayer->max_h = 8;
+  newPlayer->arrows = 0;
+
+  return newPlayer;
+}
 Node* generateGame(int numPlayers)
 {
 	Player* first;
@@ -20,13 +52,16 @@ Node* generateGame(int numPlayers)
   first = new Player;
   cout << "running generateGame" << endl;
 	top = getNewNode();
-  cout << "got new Node" << endl;
+  cout << "got first Node" << endl;
+  
+  first = getNewPlayer();
 	first->type = sheriff;
 	first->max_h = 10;
 	first->health = 10;
+  top->data = first;
 
-  cout << "adding new Node to list" << endl;
-	addNodeNext(top, first);
+  cout << "adding first Node to list" << endl;
+	addNodeNext(top);
 
   cout << "added sheriff" << endl;
 	switch (numPlayers)
@@ -74,8 +109,9 @@ Node* generateGame(int numPlayers)
 	for(int i = 0; i < ( numPlayers - 1); i++)
 	{
 		newNode = getNewNode();
-    newPlayer = new Player;
-		while (role_arr[j] == 0)
+    newPlayer = getNewPlayer();
+    j = 0;
+		while (role_arr[j] <= 0)
 		{
 			j += 1;
 		}	
@@ -83,46 +119,28 @@ Node* generateGame(int numPlayers)
 		{
 			case 0:
 			{
-				newPlayer->health = 8;
-				newPlayer->max_h = 8;
 				newPlayer->type = rene;
         cout << "added renegade" << endl;
         break;
 			}
 			case 1:
 			{
-				newPlayer->health = 8;
-				newPlayer->max_h = 8;
 				newPlayer->type = outlaw;
         cout << "added outlaw" << endl;
         break;
 			}
 			case 2:
 			{
-				newPlayer->health = 8;
-				newPlayer->max_h = 8;
 				newPlayer->type = deputy;
         cout << "added deputy" << endl;
         break;
 			}
 		}
-		addNodeNext(newNode, newPlayer);
+    role_arr[j] -= 1;
+    newNode->data = newPlayer;
+		addNodeNext(newNode);
+    newNode = NULL;
 	}
-
 	return top;
-
 }
-int main() {
 
-    int numPlayers;
-    Node* top;
-    cout << "Number of players: ";
-    cin >> numPlayers;
-
-    top = generateGame(numPlayers);
-
-    cout << "game generated" << endl;
-
-    pprint(top);
-    return 0;
-}

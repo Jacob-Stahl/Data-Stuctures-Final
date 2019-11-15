@@ -10,7 +10,8 @@ struct Player
 {
 	int health;
 	int max_h;
-	int arrows = 0;
+	int arrows;
 	PlayerType type;
 };
+
 #endif

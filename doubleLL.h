@@ -12,13 +12,21 @@ struct Node
     Node* prev;
 };
 
-void addNodeNext(Node* top, Player* player);
-void addNodePrev(Node* top, Player* player);
-void pprint_helper(Node* start, Node* next);
+// add node to next position
+void addNodeNext(Node* top);
+// add node to previous position
+void addNodePrev(Node* top);
+// recursive helper function used by pprint
+void pprint_helper(Node* start, Node* current);
+// prints all nodes and player data
 void pprint(Node* top);
 // delete node at any position. negative int to go backwards
-// use this when freeing player nodes when they die
+// use this when deleting player nodes when they die
 void deleteNode(Node* top, int pos);
+// recursive helper function that is called by validateList, similar to pprint
+void validateList_helper(Node* start, Node* current);
+// attempts to traverse list for testing purposes
+void validateList(Node* top);
 
 Node* getNewNode(void)
 {
@@ -46,58 +54,69 @@ void deleteNode(Node* top, int pos)
     free(top);
   }
 }
-
-void addNodeNext(Node* top, Player* player)
+void addNodeNext(Node* top)
 {
   if (top != NULL)
   {
     Node* newNode;
-
+    Node* temp = top->next;
     newNode = getNewNode();
-    newNode->data = player;
-
-    top->next->prev = newNode;
-    newNode->next = top->next;
-    top->next = newNode;
-    newNode->prev = top;
+    if(top == top->next)
+    {
+      newNode->next = newNode->prev = top;
+      top->next = top->prev = newNode;
+    }
+    else
+    {
+      temp->prev = newNode;
+      newNode->next = temp;
+      top->next = newNode;
+      newNode->prev = top;
+    }
   }
   else
   {
     top = getNewNode();
-    top->data = player;
   }
 }
-void addNodePrev(Node* top, Player* player)
+void addNodePrev(Node* top)
 {
   if (top != NULL)
   {
     Node* newNode;
-
+    Node* temp = top->prev;
     newNode = getNewNode();
-    newNode->data = player;
-
-    top->prev->next = newNode;
-    newNode->prev = top->prev;
-    top->prev = newNode;
-    newNode->next = top;
+    if(top == top->next)
+    {
+      newNode->next = newNode->prev = top;
+      top->next = top->prev = newNode;
+    }
+    else
+    {
+      temp->next = newNode;
+      newNode->prev = temp;
+      top->prev = newNode;
+      newNode->next = top;
+    }
   }
   else
   {
     top = getNewNode();
-    top->data = player;
   }
 }
-
 //prints first player and then calls recursive function to do the rest
 void pprint(Node* top)
 {
   Player* curr;
 
+  std::cout << "getting first player" << std::endl;
   curr = top->data;
+  std::cout << "printing player data" << std::endl;
   std::cout << "health     : " << curr->health << std::endl;
   std::cout << "max health : " << curr->max_h << std::endl;
   std::cout << "arrows     : " << curr->arrows << std::endl;
 
+  std::cout << "calling recursive helper" << std::endl << std::endl;
   pprint_helper(top, top->next);
 }
 void pprint_helper(Node* start, Node* current)
@@ -106,6 +125,7 @@ void pprint_helper(Node* start, Node* current)
   {
     Player* curr;
 
+    std::cout << "data : " << std::endl << std::endl;
     curr = current->data;
     std::cout << "health     : " << curr->health << std::endl;
     std::cout << "max health : " << curr->max_h << std::endl;
@@ -114,4 +134,21 @@ void pprint_helper(Node* start, Node* current)
   }
 }
 
+void validateList(Node* top)
+{
+  std::cout << top->prev << "   ";
+  std::cout << top << "   ";
+  std::cout << top->next << std::endl;
+  validateList_helper(top, top->next);
+}
+void validateList_helper(Node* start, Node* current)
+{
+  if (current != start)
+  {
+  std::cout << current->prev << "   ";
+  std::cout << current << "   ";
+  std::cout << current->next << std::endl;
+  validateList_helper(start, current->next);
+  }
+}
 #endif //LAB_5_DOUBLELL_H
