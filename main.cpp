@@ -135,7 +135,6 @@ Node* generateGame(int numPlayers)
     role_arr[j] -= 1;
     newNode->data = newPlayer;
 		top = addNodeNext(top, newNode);
-    cout << newNode << endl;
 	}
 	return top;
 }
