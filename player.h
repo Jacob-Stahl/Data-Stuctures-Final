@@ -14,13 +14,15 @@ struct Player
 	PlayerType type;
 };
 
-void isDead(Player *player) {
-    if (player->health <= 0) {
-        //remove player from list of players
+void isDead(Player *player, Player *temp, int pos) {
+    if (temp->health <= 0) {
+        deleteNode(player, pos);
+
     }
 }
 
-void makeMove(Player *player, Dice die[5]) {
+void makeMove(Player *player) {
+    Dice die[5];
     int keepDice[5] = {0, 0, 0, 0,
                        0};//used in conjuction with the roll function. index corresponds to dice, 1 to keep 0 to reroll
     int keep;//when weather or not the dice is to be kept needs to be decided
@@ -34,13 +36,14 @@ void makeMove(Player *player, Dice die[5]) {
             case arrow:
                 player->arrows += 1;
                 TOTAL_ARROWS -= 1;
-                if (TOTAL_ARROWS == 0) {
+                if (TOTAL_ARROWS == 0) {//when arrows run out have indians attack
                     temp = player;
-                    player = player->next;
-                    while (player != temp) {
-                        player->health -= player->arrows;
-                        isDead(player);
-                        player = player->next;
+                    int pos = 1;//what if the player is killed?
+                    while (temp != player) {
+                        temp->health -= temp->arrows;
+                        isDead(player, temp , pos);
+                        temp = temp->next;
+                        pos += 1;
                     }
                     TOTAL_ARROWS = 9;
                 }
@@ -50,7 +53,7 @@ void makeMove(Player *player, Dice die[5]) {
                 numDynamite++;
                 if (numDynamite >= 3) {
                     player->health--;
-                    //end turn 
+                    //end turn
                 }
                 break;
             case oneShot:
