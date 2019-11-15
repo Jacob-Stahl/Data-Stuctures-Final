@@ -1,7 +1,8 @@
 #include <stdlib.h>
 #include <iostream>
 using namespace std;
-
+#ifndef ROLL_H
+#define ROLL_H
 /*struct node
 {
   int roll;
@@ -104,3 +105,5 @@ int main()
   rerolls(diceCup);
   //after rerolls apply the other dice accordingly  
 }
+
+#endif

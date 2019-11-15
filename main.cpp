@@ -1,7 +1,8 @@
 #include <iostream>
 
 #include "doubleLL.h"
-
+#include "player.h"
+int TOTAL_ARROWS = 9;
 typedef struct player{
     //player *next, *prev;
     int arrow, hP, maxHP;
