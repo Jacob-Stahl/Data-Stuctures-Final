@@ -19,12 +19,8 @@ int main()
     cout << "Number of players: ";
     cin >> numPlayers;
     top = generateGame(numPlayers);
-
     cout << "game generated" << endl;
-
-    validateList(top);
-
-    cout << "printing game" << endl;
+    cout << "printing game" << endl << endl;
     pprint(top);
     return 0;
 }
@@ -41,8 +37,8 @@ Node* generateGame(int numPlayers)
 {
 	Player* first;
 	Player* newPlayer;
-  Node* top;
-	Node* newNode;
+  Node* top = NULL;
+	Node* newNode = NULL;
 	int renes;
 	int outlaws;
 	int deps;
@@ -51,17 +47,17 @@ Node* generateGame(int numPlayers)
 
   first = new Player;
   cout << "running generateGame" << endl;
-	top = getNewNode();
+	newNode = getNewNode();
   cout << "got first Node" << endl;
   
   first = getNewPlayer();
 	first->type = sheriff;
 	first->max_h = 10;
 	first->health = 10;
-  top->data = first;
+  newNode->data = first;
 
   cout << "adding first Node to list" << endl;
-	addNodeNext(top, first);
+	top = addNodeNext(top, newNode);
 
   cout << "added sheriff" << endl;
 	switch (numPlayers)
@@ -138,7 +134,7 @@ Node* generateGame(int numPlayers)
 		}
     role_arr[j] -= 1;
     newNode->data = newPlayer;
-		addNodeNext(top, newNode);
+		top = addNodeNext(top, newNode);
     cout << newNode << endl;
 	}
 	return top;

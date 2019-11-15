@@ -15,9 +15,9 @@ struct Node
 // returns new Node
 Node* getNewNode(void);
 // add node to next position
-void addNodeNext(Node* top, Node* newNode);
+Node* addNodeNext(Node* top, Node* newNode);
 // add node to previous position
-void addNodePrev(Node* top, Node* newNode);
+Node* addNodePrev(Node* top, Node* newNode);
 // recursive helper function used by pprint
 void pprint_helper(Node* start, Node* current);
 // prints all nodes and player data
@@ -56,53 +56,62 @@ void deleteNode(Node* top, int pos)
     free(top);
   }
 }
-void addNodeNext(Node* top, Node* newNode)
+Node* addNodeNext(Node* top, Node* newNode)
 {
   if (top != NULL)
   {
     Node* temp = top->next;
     if(top != top->next)
     {
-      std::cout << "list size > 1" << std::endl;
       temp->prev = newNode;
       newNode->next = temp;
       top->next = newNode;
       newNode->prev = top;
+
+      return top;
     }
     else
     {
-      std::cout << "list size 1" << std::endl;
       newNode->next = newNode->prev = top;
       top->next = top->prev = newNode;
+
+      return top;
     }
   }
   else
   {
-    std::cout << "top == null" << std::endl;
-    top = getNewNode();
+    top = newNode;
+
+    return top;
   }
 }
-void addNodePrev(Node* top, Node* newNode)
+Node* addNodePrev(Node* top, Node* newNode)
 {
   if (top != NULL)
   {
     Node* temp = top->prev;
-    if(top == top->next)
-    {
-      newNode->next = newNode->prev = top;
-      top->next = top->prev = newNode;
-    }
-    else
+    if(top != top->next)
     {
       temp->next = newNode;
       newNode->prev = temp;
       top->prev = newNode;
       newNode->next = top;
+
+      return top;
+    }
+    else
+    {
+      newNode->next = newNode->prev = top;
+      top->next = top->prev = newNode;
+
+      return top;
     }
   }
   else
   {
-    top = getNewNode();
+    top = newNode;
+
+    return top;
   }
 }
 //prints first player and then calls recursive function to do the rest
@@ -110,14 +119,11 @@ void pprint(Node* top)
 {
   Player* curr;
 
-  std::cout << "getting first player" << std::endl;
   curr = top->data;
-  std::cout << "printing player data" << std::endl;
   std::cout << "health     : " << curr->health << std::endl;
   std::cout << "max health : " << curr->max_h << std::endl;
   std::cout << "arrows     : " << curr->arrows << std::endl;
-
-  std::cout << "calling recursive helper" << std::endl << std::endl;
+  std::cout << std::endl;
   pprint_helper(top, top->next);
 }
 void pprint_helper(Node* start, Node* current)
@@ -126,11 +132,11 @@ void pprint_helper(Node* start, Node* current)
   {
     Player* curr;
 
-    std::cout << "data : " << std::endl << std::endl;
     curr = current->data;
     std::cout << "health     : " << curr->health << std::endl;
     std::cout << "max health : " << curr->max_h << std::endl;
     std::cout << "arrows     : " << curr->arrows << std::endl;
+    std::cout << std::endl;
     pprint_helper(start, current->next);
   }
 }
