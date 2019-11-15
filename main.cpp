@@ -4,113 +4,125 @@
 
 using namespace std;
 
-TOTAL_ARROWS = 0;
-
-Node* getNewNode()
-{
-	Node* newNode = new Node;
-
-	newNode->next = NULL;
-	newNode->prev = NULL;
-
-	return newNode;
-}
+int TOTAL_ARROWS = 0;
 Node* generateGame(int numPlayers)
 {
 	Player* first;
 	Player* newPlayer;
+  Node* top;
 	Node* newNode;
 	int renes;
 	int outlaws;
 	int deps;
-	int* role_arr[3];
+	int role_arr[3];
 	int j = 0;
 
-	newNode = getNewNode();
+  first = new Player;
+  cout << "running generateGame" << endl;
+	top = getNewNode();
+  cout << "got new Node" << endl;
 	first->type = sheriff;
-	first->MAX_HEALTH = 10;
+	first->max_h = 10;
 	first->health = 10;
 
-	addNodeEnd(newNode, first);
+  cout << "adding new Node to list" << endl;
+	addNodeNext(top, first);
 
-	switch numPlayers
+  cout << "added sheriff" << endl;
+	switch (numPlayers)
 	{
-		case: 4
+		case 4:
 		{
 		renes = 1;
 		outlaws = 2;
 		deps = 0;
 		break;
 		}
-		case: 5
+		case 5:
 		{
 			renes = 1;
 			outlaws = 2;
 			deps = 1;
+    break;
 		}
-		case: 6
+		case 6:
 		{
 			renes = 1;
 			outlaws = 3;
 			deps = 1;
+    break;
 		}
-		case: 7
+		case 7:
 		{
 			renes = 1;
 			outlaws = 3;
 			deps = 2;
+    break;
 		}
-		case: 8
+		case 8:
 		{
 			renes = 2;
 			outlaws = 3;
 			deps = 2;
+    break;
 		}
 	}
-	role_arr[0] = renes
-	role_arr[1] = outlaws
-	role_arr[2] = deps
+	role_arr[0] = renes;
+	role_arr[1] = outlaws;
+	role_arr[2] = deps;
 	
 	for(int i = 0; i < ( numPlayers - 1); i++)
 	{
 		newNode = getNewNode();
+    newPlayer = new Player;
 		while (role_arr[j] == 0)
 		{
 			j += 1;
 		}	
-		switch j
+		switch (j)
 		{
-			case: 0
+			case 0:
 			{
 				newPlayer->health = 8;
-				newPlayer->MAXHEALTH = 8;
+				newPlayer->max_h = 8;
 				newPlayer->type = rene;
+        cout << "added renegade" << endl;
+        break;
 			}
-			case: 1
+			case 1:
 			{
 				newPlayer->health = 8;
-				newPlayer->MAXHEALTH = 8;
+				newPlayer->max_h = 8;
 				newPlayer->type = outlaw;
+        cout << "added outlaw" << endl;
+        break;
 			}
-			case: 2
+			case 2:
 			{
 				newPlayer->health = 8;
-				newPlayer->MAXHEALTH = 8;
+				newPlayer->max_h = 8;
 				newPlayer->type = deputy;
+        cout << "added deputy" << endl;
+        break;
 			}
 		}
-		addNodeEnd(newNode, newplayer)
+		addNodeNext(newNode, newPlayer);
 	}
 
-	return first;
+	return top;
 
 }
 int main() {
 
     int numPlayers;
+    Node* top;
     cout << "Number of players: ";
     cin >> numPlayers;
 
-    for(int)
+    top = generateGame(numPlayers);
+
+    cout << "game generated" << endl;
+
+    pprint(top);
     return 0;
 }

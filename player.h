@@ -9,9 +9,8 @@ enum PlayerType { rene, sheriff, outlaw, deputy };
 struct Player
 {
 	int health;
-	int MAX_HEALTH;
+	int max_h;
 	int arrows = 0;
 	PlayerType type;
 };
-
 #endif
