@@ -7,99 +7,111 @@
 
 struct Node 
 {
-    Player data;
-    Node *next;
-    Node *prev;
+    Player* data;
+    Node* next;
+    Node* prev;
 };
 
-// NAME : addNodeEnd
-// INPUT PARAMETERS: Linked list h, int data
-// OUTPUT: Na
-// PURPOSE: Adds a node to end end of a given linked list
-void addNodeEnd(Node* list, Player* player);
-// NAME : addNodeBegin
-// INPUT PARAMETERS: Linked list h, int data
-// OUTPUT: Na
-// PURPOSE: Adds a node to beginning end of a given linked list
-void addNodeBegin(Node* list, Player* player);
-// NAME : isEmpty
-// INPUT PARAMETERS: Linked list h
-// OUTPUT: int
-// PURPOSE: returns 1 if the list is empty and 0 if not
+void addNodeNext(Node* top, Player* player);
+void addNodePrev(Node* top, Player* player);
+void pprint_helper(Node* start, Node* next);
+void pprint(Node* top);
+// delete node at any position. negative int to go backwards
+// use this when freeing player nodes when they die
+void deleteNode(Node* top, int pos);
 
-int isEmpty(Node* list);
-// NAME : delEndNode
-// INPUT PARAMETERS: LinkedList h
-// OUTPUT: na
-// PURPOSE: deletes end node of list
+Node* getNewNode(void)
+{
+  Node* newNode = new Node;
 
-void delEndNode(Node* list);
-// NAME : reverseList
-// INPUT PARAMETERS: Node *temp
-// OUTPUT: Node *
-// PURPOSE: reverses a linked list recursivly
+  newNode->next = newNode;
+  newNode->prev = newNode;
 
-Node* reverseList(Node* temp);
-
-void addNodeEnd(Node* list, Player* player) {
-	Node *temp;
-	if (isEmpty(list)) {
-		temp = new Node;
-		temp->next = NULL;
-		temp->data = player;
-		temp->prev = NULL;
-		list->head = temp;
-	}
-	else {
-		temp = list->head;
-		while (temp->next != NULL) {
-			temp = temp->next;
-		}
-		temp->next = new Node;
-		temp->next->next = NULL;
-		temp->next->prev = new Node;
-		temp->next->prev = temp;
-		temp->next->data = data;
-	}
+  return newNode;
+}
+void deleteNode(Node* top, int pos) 
+{
+  if (pos > 0)
+  {
+    deleteNode(top->next, pos - 1);
+  }
+  else if (pos < 0)
+  {
+    deleteNode(top->prev, pos + 1);
+  }
+  else
+  {
+    top->prev->next = top->next;
+    top->next->prev = top->prev;
+    free(top);
+  }
 }
 
-void addNodeBegin(Node* list, Player* player) {
-	Node *temp1 = list->head;
-	Node *temp2;
-	temp2->data = player;
-	temp2->next = temp1;
-	temp2->prev = NULL;
-	list->head = temp2;
+void addNodeNext(Node* top, Player* player)
+{
+  if (top != NULL)
+  {
+    Node* newNode;
+
+    newNode = getNewNode();
+    newNode->data = player;
+
+    top->next->prev = newNode;
+    newNode->next = top->next;
+    top->next = newNode;
+    newNode->prev = top;
+  }
+  else
+  {
+    top = getNewNode();
+    top->data = player;
+  }
+}
+void addNodePrev(Node* top, Player* player)
+{
+  if (top != NULL)
+  {
+    Node* newNode;
+
+    newNode = getNewNode();
+    newNode->data = player;
+
+    top->prev->next = newNode;
+    newNode->prev = top->prev;
+    top->prev = newNode;
+    newNode->next = top;
+  }
+  else
+  {
+    top = getNewNode();
+    top->data = player;
+  }
 }
 
-void delEndNode(Node* list) {
-	Node *temp1;
-	if (!isEmpty(list)) {
-		Node *temp = list->head;
-		while (temp->next != NULL) {
-			temp = temp->next;
-		}
-		temp->prev->next = NULL;
-		free(temp);
-	}
-}
+//prints first player and then calls recursive function to do the rest
+void pprint(Node* top)
+{
+  Player* curr;
 
-int isEmpty(Node* list) {
-	if (list->head == NULL) {
-		return 1;
-	}
-	return 0;
-}
+  curr = top->data;
+  std::cout << "health     : " << curr->health << std::endl;
+  std::cout << "max health : " << curr->max_h << std::endl;
+  std::cout << "arrows     : " << curr->arrows << std::endl;
 
-Node *reverseList(Node *temp) {
-	if (!temp)
-		return NULL;
-	Node *temp1 = temp->next;
-	temp->next = temp->prev;
-	temp->prev = temp1;
-	if (!temp->prev)
-		return temp;
-	return reverseList(temp->prev);
+  pprint_helper(top, top->next);
+}
+void pprint_helper(Node* start, Node* current)
+{
+  if (current != start)
+  {
+    Player* curr;
+
+    curr = current->data;
+    std::cout << "health     : " << curr->health << std::endl;
+    std::cout << "max health : " << curr->max_h << std::endl;
+    std::cout << "arrows     : " << curr->arrows << std::endl;
+    pprint_helper(start, current->next);
+  }
 }
 
 #endif //LAB_5_DOUBLELL_H
