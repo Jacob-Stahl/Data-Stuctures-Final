@@ -3,20 +3,6 @@
 #include "player.h"
 
 using namespace std;
-/* Function Name: getNewPlayer
-  Function Inputs: n/a
-  Function Purpose: creates a new player node
-
-  Function Name: generateGame
-  Function Inputs: number of players in the game
-  Function Purpose: generates a circular linked list of players in the game
-
-  Function Name: checkForWins
-  Function Inputs: node pointer in the circular loop
-  Function Purpose: traverses the entire loop to check if a player has won the game by another player dying
-
-
-*/
 
 // generates double circular linked list of nodes, returns the sheriff at the startinf position
 Node* generateGame(int numPlayers);
@@ -25,7 +11,7 @@ Player* getNewPlayer();
 // check win
 bool checkForWins(Node *top);
 
-int main() 
+int main()
 {
 
     int numPlayers;
@@ -38,8 +24,9 @@ int main()
     cout << "printing game" << endl << endl;
     pprint(player);
 
-
+    cout << "0\n";
     while (!checkForWins(player)) {
+        cout << "1\n";
         makeMove(player);
         player = player->next;
     }
@@ -70,7 +57,7 @@ Node* generateGame(int numPlayers)
   cout << "running generateGame" << endl;
 	newNode = getNewNode();
   cout << "got first Node" << endl;
-  
+
   first = getNewPlayer();
 	first->type = sheriff;
 	first->max_h = 10;
@@ -122,7 +109,7 @@ Node* generateGame(int numPlayers)
 	role_arr[0] = renes;
 	role_arr[1] = outlaws;
 	role_arr[2] = deps;
-	
+
 	for(int i = 0; i < ( numPlayers - 1); i++)
 	{
 		newNode = getNewNode();
@@ -131,7 +118,7 @@ Node* generateGame(int numPlayers)
 		while (role_arr[j] <= 0)
 		{
 			j += 1;
-		}	
+        }
 		switch (j)
 		{
 			case 0:
@@ -161,6 +148,7 @@ Node* generateGame(int numPlayers)
 }
 
 bool checkForWins(Node *top) {
+    cout << "3\n";
     Node *ptr;
     int rene_ = 0, sheriff_ = 0, outlaw_ = 0, deputy_ = 0;
 
@@ -181,6 +169,7 @@ bool checkForWins(Node *top) {
             break;
     }
     while (ptr != top) {
+        cout << "4\n";
         switch (ptr->data->type) {
             case rene:
                 rene_ += 1;
@@ -195,6 +184,7 @@ bool checkForWins(Node *top) {
                 deputy_ += 1;
                 break;
         }
+        ptr = ptr->next;
     }
 
     if (sheriff == 0) {
