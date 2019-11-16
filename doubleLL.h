@@ -1,10 +1,9 @@
 #include <cstdio>
 #include <cstdlib>
 #include <iostream>
+#include "player.h"
 #ifndef LAB_5_DOUBLELL_H
 #define LAB_5_DOUBLELL_H
-#include "player.h"
-#include "roll.h"
 
 struct Node
 {
@@ -25,7 +24,7 @@ void pprint_helper(Node* start, Node* current);
 void pprint(Node* top);
 // delete node at any position. negative int to go backwards
 // use this when deleting player nodes when they die
-Node* deleteNode(Node* top, int pos, bool check = 0);
+void deleteNode(Node* top, int pos);
 // recursive helper function that is called by validateList, similar to pprint
 void validateList_helper(Node* start, Node* current);
 // attempts to traverse list for testing purposes
@@ -42,7 +41,7 @@ Node* getNewNode(void)
 }
 Node* deleteNode(Node* top, int pos, bool check = 0) 
 {
-  Node* temp;
+    Node *temp;
   if (check == 0 && pos == 0)
   {
     temp = top->next;
@@ -131,7 +130,6 @@ Node* addNodePrev(Node* top, Node* newNode)
 void pprint(Node* top)
 {
   Player* curr;
-
   curr = top->data;
   std::cout << "health     : " << curr->health << std::endl;
   std::cout << "max health : " << curr->max_h << std::endl;
@@ -176,90 +174,73 @@ int isDead(Node *player, Node *temp, int pos) {
     if (temp->data->health <= 0) {
         if (pos == 0) {
             currentDead = 1;
+            deleteNode(player, pos, 1);
         } else {
             currentDead = 0;
+            deleteNode(player, pos, 0);
         }
-        deleteNode(player, pos);
+
     }
     return currentDead;
 }
+
+
 void makeMove(Node *player) {
-    Dice die[5];
-    int keepDice[5] = {0, 0, 0, 0, 0};//used in conjuction with the roll function.
+    Dice die[6];
+    int test[6] = {1, 1, 1, 1, 1, 1};
+    int keepDice[6] = {0, 0, 0, 0, 0, 0};//used in conjuction with the roll function.
                                       // index corresponds to dice, 1 to keep 0 to reroll
     int keep;//when weather or not the dice is to be kept needs to be decided
     int leftOrRight;//used when shooting players, 1 for left 0 for right
     int numDynamite = 0; //keeps track of number of dynamite that have been rolled//
     int numGat = 0; // keeps track of number of gatling gun rolls
     Node *temp;
-    initialRoll(die);
-    for (int i = 0; i < 5; i++) {
-        switch (die[i]) {
-            case arrow:
-                player->data->arrows += 1;
-                TOTAL_ARROWS -= 1;
-                if (TOTAL_ARROWS == 0) {//when arrows run out have indians attack
-                    temp = player;
-                    int pos = 1;//what if the player is killed?
-                    while (temp != player) {
-                        temp->data->health -= temp->data->arrows;
-                        if (isDead(player, temp, pos)) {//returns 1 only if the current player is dead;
-                            return;
-                        }
-                        temp = temp->next;
-                        pos += 1;
-                    }
-                    TOTAL_ARROWS = 9;
-                }
-                break;
-            case dynamite:
-                keepDice[i] = 1;
-                numDynamite++;
-                if (numDynamite >= 3) {
-                    player->data->health--;
-                    if (isDead(player, player, 0)) {
-                        return;
-                    }
-                    //end turn
-                }
-                break;
-            case oneShot:
-                keep = rand() % 1;
-                if (keep) {
-                    keepDice[i] = 1;
-                    leftOrRight = rand() % 1;
-                    if (leftOrRight) {
-                        player->prev->data->health--;
-                        if (isDead(player, player->prev, -1)) {
-                            return;
-                        }
-                    } else {
-                        player->next->data->health--;
-                        if (isDead(player, player->next, 1)) {
-                            return;
-                        }
-                    }
-                }
 
-                break;
-            case twoShot:
-                keep = rand() % 1;
-                if (keep) {
-                    keepDice[i] = 1;
-                    leftOrRight = rand() % 1;
-                    if (player->next->next != player) {//makes sure the player does not shoot himself
-                        if (leftOrRight) {
-                            player->prev->prev->data->health--;
-                            if (isDead(player, player->prev->prev, -2)) {
+    for (int j = 0; j < 3; j++) {
+        if (j == 0) {
+            roll(die);
+        } else {
+            if (keepDice == test) {
+                return;
+            }
+            reroll(die, keepDice);
+        }
+        for (int i = 0; i < 6; i++) {
+            switch (die[i]) {
+                case arrow:
+                    player->data->arrows += 1;
+                    TOTAL_ARROWS -= 1;
+                    if (TOTAL_ARROWS == 0) {//when arrows run out have indians attack
+                        temp = player;
+                        int pos = 1;//what if the player is killed?
+                        while (temp != player) {
+                            temp->data->health -= temp->data->arrows;
+                            temp->data->arrows = 0;
+                            if (isDead(player, temp, pos)) {//returns 1 only if the current player is dead;
                                 return;
                             }
-                        } else {
-                            player->next->next->data->health--;
-                            if (isDead(player, player->next->next, 2)) {
-                                return;
-                            }
+                            temp = temp->next;
+                            pos += 1;
                         }
-                    } else {
+                        TOTAL_ARROWS = 9;
+                    }
+                    break;
+                case dynamite:
+                    keepDice[i] = 1;
+                    numDynamite++;
+                    if (numDynamite >= 3) {
+                        player->data->health--;
+                        if (isDead(player, player, 0)) {
+                            return;
+                        }
+                        //end turn
+                    }
+                    break;
+                case oneShot:
+                    keep = rand() % 1;
+                    if (keep) {
+                        keepDice[i] = 1;
+                        leftOrRight = rand() % 1;
                         if (leftOrRight) {
                             player->prev->data->health--;
                             if (isDead(player, player->prev, -1)) {
@@ -267,51 +248,83 @@ void makeMove(Node *player) {
                             }
                         } else {
                             player->next->data->health--;
-                            if (isDead(player, player, 0)) {
+                            if (isDead(player, player->next, 1)) {
                                 return;
                             }
                         }
                     }
-                }
-                break;
-            case beer:
-                if (player->data->health != player->data->max_h) {//cannot go over max health
+
+                    break;
+                case twoShot:
                     keep = rand() % 1;
                     if (keep) {
                         keepDice[i] = 1;
-                        player->data->health++;
-                    }
-                }
-                break;
-            case gatGun:
-                keep = rand() % 1;
-                if (keep) {
-                    keepDice[i] = 1;
-                    numGat++;
-                    TOTAL_ARROWS += player->data->arrows; //add arrows back to pile
-                    player->data->arrows = 0;
-
-                    if (numGat == 3) {
-                        temp = player;
-                        temp = temp->next;
-                        int pos = 1;
-                        while (temp != player) {//iterate through players and subtract a life point from each
-                            temp->data->health--;
-                            if (isDead(player, temp, pos)) {
-                                return;
+                        leftOrRight = rand() % 1;
+                        if (player->next->next != player) {//makes sure the player does not shoot himself
+                            if (leftOrRight) {
+                                player->prev->prev->data->health--;
+                                if (isDead(player, player->prev->prev, -2)) {
+                                    return;
+                                }
+                            } else {
+                                player->next->next->data->health--;
+                                if (isDead(player, player->next->next, 2)) {
+                                    return;
+                                }
                             }
-                            temp = temp->next;
-                            pos++;
+                        } else {
+                            if (leftOrRight) {
+                                player->prev->data->health--;
+                                if (isDead(player, player->prev, -1)) {
+                                    return;
+                                }
+                            } else {
+                                player->next->data->health--;
+                                if (isDead(player, player, 0)) {
+                                    return;
+                                }
+                            }
                         }
                     }
-                }
-                break;
-            default:
-                cout << "ROLL ERROR\n";
-                break;
+                    break;
+                case beer:
+                    if (player->data->health != player->data->max_h) {//cannot go over max health
+                        keep = rand() % 1;
+                        if (keep) {
+                            keepDice[i] = 1;
+                            player->data->health++;
+                        }
+                    }
+                    break;
+                case gatGun:
+                    keep = rand() % 1;
+                    if (keep) {
+                        keepDice[i] = 1;
+                        numGat++;
+                        TOTAL_ARROWS += player->data->arrows; //add arrows back to pile
+                        player->data->arrows = 0;
 
+                        if (numGat == 3) {
+                            temp = player;
+                            temp = temp->next;
+                            int pos = 1;
+                            while (temp != player) {//iterate through players and subtract a life point from each
+                                temp->data->health--;
+                                if (isDead(player, temp, pos)) {
+                                    return;
+                                }
+                                temp = temp->next;
+                                pos++;
+                            }
+                        }
+                    }
+                    break;
+                default:
+                    cout << "ROLL ERROR\n";
+                    break;
+
+            }
         }
     }
-
 }
 #endif //LAB_5_DOUBLELL_H
