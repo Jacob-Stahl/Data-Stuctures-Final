@@ -6,6 +6,7 @@ using namespace std;
 #define ROLL_H
 
 //did not implement enum :(
+enum Dice{arrow, dynomite, oneShot, twoShot, beer, gatGun};
 
 int diceCup[6];
 
