@@ -1,9 +1,10 @@
 #include <cstdio>
 #include <cstdlib>
 #include <iostream>
-#include "player.h"
 #ifndef LAB_5_DOUBLELL_H
 #define LAB_5_DOUBLELL_H
+#include "player.h"
+#include "dice.h"
 
 struct Node
 {
@@ -24,7 +25,7 @@ void pprint_helper(Node* start, Node* current);
 void pprint(Node* top);
 // delete node at any position. negative int to go backwards
 // use this when deleting player nodes when they die
-void deleteNode(Node* top, int pos);
+void deleteNode(Node* top, int pos, bool check = 0);
 // recursive helper function that is called by validateList, similar to pprint
 void validateList_helper(Node* start, Node* current);
 // attempts to traverse list for testing purposes
@@ -41,7 +42,7 @@ Node* getNewNode(void)
 }
 Node* deleteNode(Node* top, int pos, bool check = 0) 
 {
-  Node* temp
+  Node* temp;
   if (check == 0 && pos == 0)
   {
     temp = top->next;
@@ -177,8 +178,6 @@ int isDead(Node *player, Node *temp, int pos) {
     }
     return currentDead;
 }
-
-
 void makeMove(Node *player) {
     Dice die[5];
     int keepDice[5] = {0, 0, 0, 0, 0};//used in conjuction with the roll function.
