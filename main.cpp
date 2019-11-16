@@ -3,6 +3,20 @@
 #include "player.h"
 
 using namespace std;
+/* Function Name: getNewPlayer
+  Function Inputs: n/a
+  Function Purpose: creates a new player node
+
+  Function Name: generateGame
+  Function Inputs: number of players in the game
+  Function Purpose: generates a circular linked list of players in the game
+
+  Function Name: checkForWins
+  Function Inputs: node pointer in the circular loop
+  Function Purpose: traverses the entire loop to check if a player has won the game by another player dying
+
+
+*/
 
 // generates double circular linked list of nodes, returns the sheriff at the startinf position
 Node* generateGame(int numPlayers);
