@@ -49,6 +49,10 @@ Node* deleteNode(Node* top, int pos, bool check = 0)
     free(top);
     return temp;
   }
+  else if (check == 0 && pos != 0)
+  {
+    temp = top;
+  }
   if (pos > 0)
   {
     deleteNode(top->next, pos - 1, 1);
@@ -62,6 +66,7 @@ Node* deleteNode(Node* top, int pos, bool check = 0)
     top->prev->next = top->next;
     top->next->prev = top->prev;
     free(top);
+    return temp;
   }
 }
 Node* addNodeNext(Node* top, Node* newNode)
