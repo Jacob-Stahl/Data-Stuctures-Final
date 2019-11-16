@@ -39,15 +39,22 @@ Node* getNewNode(void)
 
   return newNode;
 }
-void deleteNode(Node* top, int pos) 
+Node* deleteNode(Node* top, int pos, bool check = 0) 
 {
+  Node* temp
+  if (check == 0 && pos == 0)
+  {
+    temp = top->next;
+    free(top);
+    return temp;
+  }
   if (pos > 0)
   {
-    deleteNode(top->next, pos - 1);
+    deleteNode(top->next, pos - 1, 1);
   }
   else if (pos < 0)
   {
-    deleteNode(top->prev, pos + 1);
+    deleteNode(top->prev, pos + 1, 1);
   }
   else
   {

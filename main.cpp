@@ -4,8 +4,6 @@
 
 using namespace std;
 
-int TOTAL_ARROWS = 0;
-
 // generates double circular linked list of nodes, returns the sheriff at the startinf position
 Node* generateGame(int numPlayers);
 // returns new Player
