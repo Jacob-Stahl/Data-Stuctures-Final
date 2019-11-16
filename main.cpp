@@ -4,11 +4,32 @@
 
 using namespace std;
 
+
 // generates double circular linked list of nodes, returns the sheriff at the startinf position
+
+/*
+Name: generateGame()
+Input Params: int numPlayers
+output: Node* sheriff
+purpose: generate game and return the sheriff position
+*/
 Node* generateGame(int numPlayers);
 // returns new Player
+/*
+Name: getNewPlayer()
+Input Params: void
+output: Player* newPlayer
+purpose: return new player
+*/
 Player* getNewPlayer();
 // check win
+/*
+Name: checkForWins()
+Input Params: bool 1 to end game, zero to keep going
+output: Player* checkForWins
+purpose: check to see which team won if any
+*/
+// generates double circular linked list of nodes, returns the sheriff at the startinf position
 bool checkForWins(Node *top);
 
 int main()
