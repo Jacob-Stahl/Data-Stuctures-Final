@@ -34,7 +34,7 @@ void roll(Dice* dP)
   {
     switch(*(diceCup+i))
     {
-      case : action = "arrow";
+      case 0: action = "arrow";
         break;
       case 1: action = "dynomite";
         break;
