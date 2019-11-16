@@ -11,7 +11,7 @@ Player* getNewPlayer();
 // check win
 bool checkForWins(Node *top);
 
-int main() 
+int main()
 {
 
     int numPlayers;
@@ -24,8 +24,9 @@ int main()
     cout << "printing game" << endl << endl;
     pprint(player);
 
-
+    cout << "0\n";
     while (!checkForWins(player)) {
+        cout << "1\n";
         makeMove(player);
         player = player->next;
     }
@@ -56,7 +57,7 @@ Node* generateGame(int numPlayers)
   cout << "running generateGame" << endl;
 	newNode = getNewNode();
   cout << "got first Node" << endl;
-  
+
   first = getNewPlayer();
 	first->type = sheriff;
 	first->max_h = 10;
@@ -108,7 +109,7 @@ Node* generateGame(int numPlayers)
 	role_arr[0] = renes;
 	role_arr[1] = outlaws;
 	role_arr[2] = deps;
-	
+
 	for(int i = 0; i < ( numPlayers - 1); i++)
 	{
 		newNode = getNewNode();
@@ -117,7 +118,7 @@ Node* generateGame(int numPlayers)
 		while (role_arr[j] <= 0)
 		{
 			j += 1;
-		}	
+        }
 		switch (j)
 		{
 			case 0:
@@ -147,6 +148,7 @@ Node* generateGame(int numPlayers)
 }
 
 bool checkForWins(Node *top) {
+    cout << "3\n";
     Node *ptr;
     int rene_ = 0, sheriff_ = 0, outlaw_ = 0, deputy_ = 0;
 
@@ -167,6 +169,7 @@ bool checkForWins(Node *top) {
             break;
     }
     while (ptr != top) {
+        cout << "4\n";
         switch (ptr->data->type) {
             case rene:
                 rene_ += 1;
@@ -181,6 +184,7 @@ bool checkForWins(Node *top) {
                 deputy_ += 1;
                 break;
         }
+        ptr = ptr->next;
     }
 
     if (sheriff == 0) {
