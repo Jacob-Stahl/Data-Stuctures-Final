@@ -1,6 +1,13 @@
 #include <iostream>
 #include <stdlib.h>
 using namespace std;
+/* Function Name: roll
+  Function Inputs: Dice array
+  Function Purpose: Randomly assigns the dice
+  
+  Function Name: reroll
+  Function Inputs: Dice array and array of boolean corressponding to dice array to determine if dice is to be rerolled
+  Function Purpose: Randomly assigns the dice that are to be rerolled t*/
 
 #ifndef ROLL_H
 #define ROLL_H
@@ -25,7 +32,7 @@ void roll(Dice* dP)
   {
     switch(*(diceCup+i))
     {
-      case 0: action = "arrow";
+      case : action = "arrow";
         break;
       case 1: action = "dynomite";
         break;
@@ -75,16 +82,6 @@ void reroll(Dice* dP, int* test)
   }
   
 }
-/*int main()
-{
-  int test[] = {1,1,0,1,0,1};
-  roll(diceCup);
-  reroll(diceCup,test);
-
-  
-
-
-  return 0;
-}*/
+ 
 
 #endif
