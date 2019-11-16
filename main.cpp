@@ -213,16 +213,16 @@ bool checkForWins(Node *top) {
         ptr = ptr->next;
     }
 
-    if (sheriff == 0) {
-        if (outlaw > 0) {
+    if (sheriff_ == 0) {
+        if (outlaw_ > 0) {
             cout << "outlaws win!" << endl;
             return 1;
-        } else {
+        } else if (deputy_ == 0) {
             cout << "renegades win!" << endl;
             return 1;
         }
     } else {
-        if (outlaw == 0 && rene == 0) {
+        if (outlaw_ == 0 && rene_ == 0) {
             cout << "sheriff!" << endl;
             return 1;
         }
