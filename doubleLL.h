@@ -4,7 +4,7 @@
 #ifndef LAB_5_DOUBLELL_H
 #define LAB_5_DOUBLELL_H
 #include "player.h"
-#include "dice.h"
+#include "roll.h"
 
 struct Node
 {
