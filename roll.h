@@ -3,6 +3,8 @@
 using namespace std;
 #ifndef ROLL_H
 #define ROLL_H
+
+enum Roll{arrow, dynamite, oneShot, twoShot, beer, gatGun};
 /*struct node
 {
   int roll;
@@ -86,24 +88,24 @@ void rerolls(int* diceCup)
     }
   }
 }
-int main()
-{
-  int endTurn = 0;
-  int diceCup[6];
-  initialRoll(diceCup);
-  // apply the intials rolls i.e. arrows and if they rolled 3 dynomite
-  for(int k = 0 ; k < 6 ; k++) // check all dice on the initial roll should probally be implemented in the reroll aswell
-  {
-    if(*(diceCup+k) == 2 )
-      endTurn++;
-    if(*(diceCup+k) == 1 )
-      //player needs to take an arrow
-    if(endturn >= 3)
-      //end the players turn implement at end of the roll
-  }
-  cout << endl;
-  rerolls(diceCup);
-  //after rerolls apply the other dice accordingly  
-}
+// int main()
+// {
+//   int endTurn = 0;
+//   int diceCup[6];
+//   initialRoll(diceCup);
+//   // apply the intials rolls i.e. arrows and if they rolled 3 dynomite
+//   for(int k = 0 ; k < 6 ; k++) // check all dice on the initial roll should probally be implemented in the reroll aswell
+//   {
+//     if(*(diceCup+k) == 2 )
+//       endTurn++;
+//     if(*(diceCup+k) == 1 )
+//       //player needs to take an arrow
+//     if(endturn >= 3)
+//       //end the players turn implement at end of the roll
+//   }
+//   cout << endl;
+//   rerolls(diceCup);
+//   //after rerolls apply the other dice accordingly  
+// }
 
 #endif
