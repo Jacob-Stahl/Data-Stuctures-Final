@@ -25,7 +25,7 @@ void pprint_helper(Node* start, Node* current);
 void pprint(Node* top);
 // delete node at any position. negative int to go backwards
 // use this when deleting player nodes when they die
-void deleteNode(Node* top, int pos, bool check = 0);
+Node* deleteNode(Node* top, int pos, bool check = 0);
 // recursive helper function that is called by validateList, similar to pprint
 void validateList_helper(Node* start, Node* current);
 // attempts to traverse list for testing purposes
@@ -275,7 +275,7 @@ void makeMove(Node *player) {
                 }
                 break;
             case beer:
-                if (player->data->health != player->data->MAX_HEALTH) {//cannot go over max health
+                if (player->data->health != player->data->max_h) {//cannot go over max health
                     keep = rand() % 1;
                     if (keep) {
                         keepDice[i] = 1;
