@@ -8,7 +8,63 @@ using namespace std;
 Node* generateGame(int numPlayers);
 // returns new Player
 Player* getNewPlayer();
+// check win
+bool checkForWins(Node* top)
+{
+  Node* ptr;
+  int rene = 0, sheriff = 0, outlaw = 0, deputy = 0;
 
+  ptr = top->next;
+
+  switch (top->data->type)
+  {
+    case rene: {rene += 1};
+      break;
+    case sheriff: {sheriff += 1};
+      break;
+    case outlaw: {outlaw += 1};
+      break;
+    case deputy: {deputy += 1};
+      break;
+  }
+  while (ptr != top)
+  {
+    switch (ptr->data->type)
+    {
+      case rene: {rene += 1};
+        break;
+      case sheriff: {sheriff += 1};
+        break;
+      case outlaw: {outlaw += 1};
+        break;
+      case deputy: {deputy += 1};
+        break;
+    }
+  }
+
+  if (sheriff == 0)
+  {
+    if(outlaw > 0)
+    {
+      cout << "outlaws win!" << endl;
+      return 1;
+    }
+    else
+    {
+      cout << "renegades win!" << endl;
+      return 1;
+    }
+  }
+  else
+  {
+    if(outlaw == 0 && rene == 0)
+    {
+      cout << "sheriff!" << endl;
+      return 1;
+    }
+  }
+  return 0;
+}
 int main() 
 {
 
