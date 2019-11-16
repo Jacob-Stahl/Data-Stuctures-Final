@@ -46,10 +46,16 @@ int main()
     pprint(player);
 
     cout << "0\n";
-    while (!checkForWins(player)) {
+    while (1) {
+        if (checkForWins(player))
+            break;
         cout << "1\n";
+        cout << "total arrow: " << TOTAL_ARROWS << endl;
         makeMove(player);
         player = player->next;
+        cout << "\n================================\n";
+        pprint(player);
+        cout << "================================\n";
     }
     return 0;
 }

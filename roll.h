@@ -1,5 +1,6 @@
 #include <iostream>
 #include <stdlib.h>
+#include <time.h>
 
 
 using namespace std;
@@ -23,7 +24,7 @@ Dice diceCup[6];
 void roll(Dice* dP)
 {
   Dice* dice;
-  srand (time(NULL));
+    srand(time(NULL));
   string action;
   for(int k = 0 ; k < 6 ; k++)
   {
@@ -36,7 +37,8 @@ void roll(Dice* dP)
     {
       case 0: action = "arrow";
         break;
-      case 1: action = "dynomite";
+        case 1:
+            action = "dynamite";
         break;
       case 2: action = "one shot";
         break;

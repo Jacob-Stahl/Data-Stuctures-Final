@@ -181,6 +181,7 @@ int isDead(Node *player, Node *temp, int pos) {
             currentDead = 0;
             deleteNode(player, pos, 0);
         }
+        cout << "\nPlayer" << player->data->number << "died\n";
 
     }
     return currentDead;
@@ -200,11 +201,10 @@ void makeMove(Node *player) {
 
     for (int j = 0; j < 3; j++) {
         if (j == 0) {
+            cout << "\t\nroll Player: " << player->data->number << endl;
             roll(die);
         } else {
-            if (keepDice == test) {
-                return;
-            }
+            cout << "\t\nREroll Player: " << player->data->number << endl;
             reroll(die, keepDice);
         }
         for (int i = 0; i < 6; i++) {
@@ -212,9 +212,10 @@ void makeMove(Node *player) {
                 case arrow:
                     player->data->arrows += 1;
                     TOTAL_ARROWS -= 1;
-                    if (TOTAL_ARROWS == 0) {//when arrows run out have indians attack
+                    if (TOTAL_ARROWS == 1) {//when arrows run out have indians attack
+                        cout << "\t\t\nBETTTTT\n";
                         temp = player;
-                        int pos = 1;//what if the player is killed?
+                        int pos = 1;
                         while (temp != player) {
                             temp->data->health -= temp->data->arrows;
                             temp->data->arrows = 0;
