@@ -31,24 +31,24 @@ void roll(Dice *dP) {
         dice = dP + k;
         *dice = (Dice) (rand() % 6);
     }
-    for (int i = 0; i < 6; i++) {
-        switch (*(dice + i)) {
-            case 0:
+    for (int i = 5; i >= 0; i--) {
+        switch (*(dice - i)) {
+            case arrow:
                 action = "arrow";
                 break;
-            case 1:
+            case dynamite:
                 action = "dynamite";
                 break;
-            case 2:
+            case oneShot:
                 action = "one shot";
                 break;
-            case 3:
+            case twoShot:
                 action = "two shots";
                 break;
-            case 4:
+            case gatGun:
                 action = "gattling gun";
                 break;
-            case 5:
+            case beer:
                 action = "beer";
                 break;
         }
@@ -65,9 +65,9 @@ void reroll(Dice *dP, int *test) {
     for (int k = 0; k < 6; k++) {
         dice = dP + k;
         rerollOption = test + k;
-        if (*rerollOption == 1) {
+        if (*rerollOption == 0) {
             *dice = (Dice) (rand() % 6);
-            switch (*(diceCup + k)) {
+            switch (*(dice)) {
                 case 0:
                     action = "arrow";
                     break;
@@ -89,6 +89,7 @@ void reroll(Dice *dP, int *test) {
             }
             cout << endl << "player rerolled a " << action << " on dice " << k + 1;
         }
+       // cout << endl << "player has a " << action << " on dice " << k + 1;
     }
 
 }
