@@ -211,11 +211,11 @@ void makeMove(Node *player) {
             switch (die[i]) {
                 case arrow:
 
-                    cout << "\n Arrow\n";
+                    //cout << "\n Arrow\n";
                     player->data->arrows += 1;
                     TOTAL_ARROWS -= 1;
                     if (TOTAL_ARROWS == 0) {//when arrows run out have indians attack
-                        cout << "\n\t\tBETTTTT\n";
+                        // cout << "\n\t\tBETTTTT\n";
                         temp = player;
                         int pos = 1;
                         while (temp->next != player) {
@@ -231,7 +231,7 @@ void makeMove(Node *player) {
                     }
                     break;
                 case dynamite:
-                    cout << "\n Dynamite\n";
+                    // cout << "\n Dynamite\n";
                     keepDice[i] = 1;
                     numDynamite++;
                     if (numDynamite >= 3) {
@@ -239,15 +239,15 @@ void makeMove(Node *player) {
                         if (isDead(player, player, 0)) {
                             return;
                         }
-                        //end turn
+                        return;
                     }
                     break;
                 case oneShot:
-                    cout << "\n oneShot\n";
+                    //cout << "\n oneShot\n";
                     keep = rand() % 2;
                     if (keep) {
                         keepDice[i] = 1;
-                        leftOrRight = rand() % 1;
+                        leftOrRight = rand() % 2;
                         if (leftOrRight) {
                             player->prev->data->health--;
                             if (isDead(player, player->prev, -1)) {
@@ -263,7 +263,7 @@ void makeMove(Node *player) {
 
                     break;
                 case twoShot:
-                    cout << "\n twoShot\n";
+                    //cout << "\n twoShot\n";
                     keep = rand() % 2;
                     if (keep) {
                         keepDice[i] = 1;
@@ -296,7 +296,7 @@ void makeMove(Node *player) {
                     }
                     break;
                 case beer:
-                    cout << "\n beer\n";
+                    //cout << "\n beer\n";
                     if (player->data->health != player->data->max_h) {//cannot go over max health
                         keep = rand() % 2;
                         if (keep) {
@@ -306,7 +306,7 @@ void makeMove(Node *player) {
                     }
                     break;
                 case gatGun:
-                    cout << "\n gatGun\n";
+                    //cout << "\n gatGun\n";
                     keep = rand() % 2;
                     if (keep) {
                         keepDice[i] = 1;
