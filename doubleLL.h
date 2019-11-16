@@ -131,6 +131,7 @@ void pprint(Node* top)
 {
   Player* curr;
   curr = top->data;
+  std::cout << "player     : " << curr->number << std::endl;
   std::cout << "health     : " << curr->health << std::endl;
   std::cout << "max health : " << curr->max_h << std::endl;
   std::cout << "arrows     : " << curr->arrows << std::endl;
@@ -144,6 +145,7 @@ void pprint_helper(Node* start, Node* current)
     Player* curr;
 
     curr = current->data;
+    std::cout << "player     : " << curr->number << std::endl;
     std::cout << "health     : " << curr->health << std::endl;
     std::cout << "max health : " << curr->max_h << std::endl;
     std::cout << "arrows     : " << curr->arrows << std::endl;
