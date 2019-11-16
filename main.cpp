@@ -9,73 +9,26 @@ Node* generateGame(int numPlayers);
 // returns new Player
 Player* getNewPlayer();
 // check win
-bool checkForWins(Node* top)
-{
-  Node* ptr;
-  int rene = 0, sheriff = 0, outlaw = 0, deputy = 0;
+bool checkForWins(Node *top);
 
-  ptr = top->next;
-
-  switch (top->data->type)
-  {
-    case rene: {rene += 1};
-      break;
-    case sheriff: {sheriff += 1};
-      break;
-    case outlaw: {outlaw += 1};
-      break;
-    case deputy: {deputy += 1};
-      break;
-  }
-  while (ptr != top)
-  {
-    switch (ptr->data->type)
-    {
-      case rene: {rene += 1};
-        break;
-      case sheriff: {sheriff += 1};
-        break;
-      case outlaw: {outlaw += 1};
-        break;
-      case deputy: {deputy += 1};
-        break;
-    }
-  }
-
-  if (sheriff == 0)
-  {
-    if(outlaw > 0)
-    {
-      cout << "outlaws win!" << endl;
-      return 1;
-    }
-    else
-    {
-      cout << "renegades win!" << endl;
-      return 1;
-    }
-  }
-  else
-  {
-    if(outlaw == 0 && rene == 0)
-    {
-      cout << "sheriff!" << endl;
-      return 1;
-    }
-  }
-  return 0;
-}
 int main() 
 {
 
     int numPlayers;
-    Node* top;
+    Node *player;
     cout << "Number of players: ";
     cin >> numPlayers;
-    top = generateGame(numPlayers);
+    player = generateGame(numPlayers);//player is the start of the circular doubleLL not just a single player
+
     cout << "game generated" << endl;
     cout << "printing game" << endl << endl;
-    pprint(top);
+    pprint(player);
+
+
+    while (!checkForWins(player)) {
+        makeMove(player);
+        player = player->next;
+    }
     return 0;
 }
 Player* getNewPlayer()
@@ -191,4 +144,58 @@ Node* generateGame(int numPlayers)
 		top = addNodeNext(top, newNode);
 	}
 	return top;
+}
+
+bool checkForWins(Node *top) {
+    Node *ptr;
+    int rene_ = 0, sheriff_ = 0, outlaw_ = 0, deputy_ = 0;
+
+    ptr = top->next;
+
+    switch (top->data->type) {
+        case rene:
+            rene_ += 1;
+            break;
+        case sheriff:
+            sheriff_ += 1;
+            break;
+        case outlaw:
+            outlaw_ += 1;
+            break;
+        case deputy:
+            deputy_ += 1;
+            break;
+    }
+    while (ptr != top) {
+        switch (ptr->data->type) {
+            case rene:
+                rene_ += 1;
+                break;
+            case sheriff:
+                sheriff_ += 1;
+                break;
+            case outlaw:
+                outlaw_ += 1;
+                break;
+            case deputy:
+                deputy_ += 1;
+                break;
+        }
+    }
+
+    if (sheriff == 0) {
+        if (outlaw > 0) {
+            cout << "outlaws win!" << endl;
+            return 1;
+        } else {
+            cout << "renegades win!" << endl;
+            return 1;
+        }
+    } else {
+        if (outlaw == 0 && rene == 0) {
+            cout << "sheriff!" << endl;
+            return 1;
+        }
+    }
+    return 0;
 }
