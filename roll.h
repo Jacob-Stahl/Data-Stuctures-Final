@@ -54,7 +54,7 @@ void reroll(Dice* dP, int* test)
     rerollOption = test + k;
     if(*rerollOption == 1)
     {
-      *dice = rand() %6 + 1;
+      *dice = (Dice)(rand() %6);
       switch(*(diceCup+k))
     {
       case 0: action = "arrow";
