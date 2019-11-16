@@ -6,45 +6,45 @@ using namespace std;
 #define ROLL_H
 
 //did not implement enum :(
-enum Dice{arrow, dynomite, oneShot, twoShot, beer, gatGun};
+enum Dice{arrow, dynamite, oneShot, twoShot, beer, gatGun};
 
-int diceCup[6];
+Dice diceCup[6];
 
 //initall roll of the dice takes an array of ints and randomly rolls them and displays what was rolled
-void roll(int* dP)
+void roll(Dice* dP)
 {
-  int* dice;
+  Dice* dice;
   srand (time(NULL));
   string action;
   for(int k = 0 ; k < 6 ; k++)
   {
     dice = dP + k;
-    *dice = rand() %6 + 1; 
+    *dice = (Dice)(rand() %6); 
   }
   for(int i = 0; i < 6 ; i++)
   {
     switch(*(diceCup+i))
     {
-      case 1: action = "arrow";
+      case 0: action = "arrow";
         break;
-      case 2: action = "dynomite";
+      case 1: action = "dynomite";
         break;
-      case 3: action = "one shot";
+      case 2: action = "one shot";
         break;
-      case 4: action = "two shots";
+      case 3: action = "two shots";
         break;
-      case 5: action = "gattling gun";
+      case 4: action = "gattling gun";
         break;
-      case 6: action = "beer";
+      case 5: action = "beer";
         break;
     }
     cout << endl << "player rolled a " << action << " on dice " << i+1;
   }
 }
 //serperate function to test for reroll easier to implement the displaying of what a person rerolled this way ANDREW >:(
-void reroll(int* dP, int* test)
+void reroll(Dice* dP, int* test)
 {
-  int* dice;
+  Dice* dice;
   int* rerollOption;
   srand (time(NULL));
   string action;
@@ -57,17 +57,17 @@ void reroll(int* dP, int* test)
       *dice = rand() %6 + 1;
       switch(*(diceCup+k))
     {
-      case 1: action = "arrow";
+      case 0: action = "arrow";
         break;
-      case 2: action = "dynomite";
+      case 1: action = "dynomite";
         break;
-      case 3: action = "one shot";
+      case 2: action = "one shot";
         break;
-      case 4: action = "two shots";
+      case 3: action = "two shots";
         break;
-      case 5: action = "gattling gun";
+      case 4: action = "gattling gun";
         break;
-      case 6: action = "beer";
+      case 5: action = "beer";
         break;
     }
     cout << endl << "player rerolled a " << action << " on dice " << k+1;
