@@ -12,6 +12,7 @@ enum PlayerType {
     rene, sheriff, outlaw, deputy
 };
 struct Player {
+    int number;
     int health;
     int max_h;
     int arrows;

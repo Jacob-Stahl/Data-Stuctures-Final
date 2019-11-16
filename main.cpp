@@ -68,6 +68,7 @@ Node* generateGame(int numPlayers)
 	Player* newPlayer;
   Node* top = NULL;
 	Node* newNode = NULL;
+  int player_num = 1;
 	int renes;
 	int outlaws;
 	int deps;
@@ -83,6 +84,8 @@ Node* generateGame(int numPlayers)
 	first->type = sheriff;
 	first->max_h = 10;
 	first->health = 10;
+  first->number = player_num;
+  player_num++;
   newNode->data = first;
 
   cout << "adding first Node to list" << endl;
@@ -135,6 +138,8 @@ Node* generateGame(int numPlayers)
 	{
 		newNode = getNewNode();
     newPlayer = getNewPlayer();
+    newPlayer->number = player_num;
+    player_num++;
     j = 0;
 		while (role_arr[j] <= 0)
 		{
