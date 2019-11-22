@@ -176,7 +176,6 @@ Node* generateGame(int numPlayers)
 	}
 	return top;
 }
-
 bool checkForWins(Node *top) {
     Node *ptr;
     int rene_ = 0, sheriff_ = 0, outlaw_ = 0, deputy_ = 0;
