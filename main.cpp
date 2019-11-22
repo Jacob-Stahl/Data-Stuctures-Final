@@ -37,6 +37,7 @@ int main()
 
     int numPlayers;
     Node *player;
+    srand(time(NULL));
     cout << "Number of players: ";
     cin >> numPlayers;
     player = generateGame(numPlayers);//player is the start of the circular doubleLL not just a single player

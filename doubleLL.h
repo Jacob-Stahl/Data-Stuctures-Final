@@ -221,9 +221,8 @@ int isDead(Node *player, Node *temp, int pos) {
 
 void makeMove(Node *player) {
     Dice die[6];
-    int test[6] = {1, 1, 1, 1, 1, 1};
-    int keepDice[6] = {0, 0, 0, 0, 0, 0};//used in conjuction with the roll function.
-                                      // index corresponds to dice, 1 to keep 0 to reroll
+    int keepDice[6] = {0, 0, 0, 0, 0, 0};//used in conjunction with the roll function.
+    // index corresponds to dice, 1 to keep 0 to reroll
     int keep;//when weather or not the dice is to be kept needs to be decided
     int leftOrRight;//used when shooting players, 1 for left 0 for right
     int numDynamite = 0; //keeps track of number of dynamite that have been rolled//
@@ -232,11 +231,17 @@ void makeMove(Node *player) {
 
     for (int j = 0; j < 3; j++) {
         if (j == 0) {
-            cout << "\t\nroll Player: " << player->data->number << endl;
+            cout << "\t\nRoll Player: " << player->data->number << endl;
             roll(die);
+            cout << "\nInitial Roll:\n";
+            printDice(die);
         } else {
-            cout << "\t\nREroll Player: " << player->data->number << endl;
+            cout << "\t\nRe-roll Player: " << player->data->number << endl;
             reroll(die, keepDice);
+            if (j == 2) {
+                cout << "\nFinal Roll:\n";
+                printDice(die);
+            }
         }
         for (int i = 0; i < 6; i++) {
             switch (die[i]) {

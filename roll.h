@@ -22,19 +22,20 @@ enum Dice {
 
 Dice diceCup[6];
 
+void printDice(Dice (&die)[6]);
+
 //initall roll of the dice takes an array of ints and randomly rolls them and displays what was rolled
-void roll(Dice *dP) {
+void roll(Dice (&die)[6]) {
     Dice *dice;
-    srand(time(NULL));
+
     string action;
     for (int k = 0; k < 6; k++) {
-        dice = dP + k;
-        *dice = (Dice) (rand() % 6);
+        die[k] = (Dice) (rand() % 6);
     }
     for (int i = 5; i >= 0; i--) {
-        switch (*(dice - i)) {
+        switch (die[i]) {
             case arrow:
-                action = "arrow";
+                action = "arrow  ";
                 break;
             case dynamite:
                 action = "dynamite";
@@ -49,18 +50,47 @@ void roll(Dice *dP) {
                 action = "gattling gun";
                 break;
             case beer:
-                action = "beer";
+                action = "beer   ";
                 break;
         }
-        cout << endl << "player rolled a " << action << " on dice " << i + 1;
+        cout << endl << "player rolled a  " << action << "\t on dice " << i + 1;
     }
+}
+
+void printDice(Dice (&die)[6]) {
+    string action;
+    cout << "\n[";
+    for (int i = 0; i < 6; i++) {
+        switch (die[i]) {
+            case arrow:
+                action = "arrow  ";
+                break;
+            case dynamite:
+                action = "dynamite";
+                break;
+            case oneShot:
+                action = "one shot";
+                break;
+            case twoShot:
+                action = "two shots";
+                break;
+            case gatGun:
+                action = "gattling gun";
+                break;
+            case beer:
+                action = "beer   ";
+                break;
+        }
+        cout << i + 1 << ": " << action << "   ";
+    }
+    cout << "]\n";
 }
 
 //serperate function to test for reroll easier to implement the displaying of what a person rerolled this way ANDREW >:(
 void reroll(Dice *dP, int *test) {
     Dice *dice;
     int *rerollOption;
-    srand(time(NULL));
+    //srand(time(NULL));
     string action;
     for (int k = 0; k < 6; k++) {
         dice = dP + k;
