@@ -121,6 +121,26 @@ void pprint(Node* top)
   Player* curr;
   curr = top->data;
   std::cout << "player     : " << curr->number << std::endl;
+    switch (curr->type) {
+        case rene:
+            std::cout << "Type       : Renagade" << std::endl;
+            break;
+
+        case sheriff:
+            std::cout << "Type       : Sheriff" << std::endl;
+            break;
+
+        case outlaw:
+            std::cout << "Type       : Outlaw" << std::endl;
+            break;
+
+        case deputy:
+            std::cout << "Type       : Deputy" << std::endl;
+            break;
+
+        default:
+            break;
+    }
   std::cout << "health     : " << curr->health << std::endl;
   std::cout << "max health : " << curr->max_h << std::endl;
   std::cout << "arrows     : " << curr->arrows << std::endl;
@@ -132,12 +152,31 @@ void pprint_helper(Node* start, Node* current)
   if (current != start)
   {
     Player* curr;
-
     curr = current->data;
-    std::cout << "player     : " << curr->number << std::endl;
-    std::cout << "health     : " << curr->health << std::endl;
-    std::cout << "max health : " << curr->max_h << std::endl;
-    std::cout << "arrows     : " << curr->arrows << std::endl;
+      std::cout << "Player     : " << curr->number << std::endl;
+      switch (curr->type) {
+          case rene:
+              std::cout << "Type       : Renagade" << std::endl;
+              break;
+
+          case sheriff:
+              std::cout << "Type       : Sheriff" << std::endl;
+              break;
+
+          case outlaw:
+              std::cout << "Type       : Outlaw" << std::endl;
+              break;
+
+          case deputy:
+              std::cout << "Type       : Deputy" << std::endl;
+              break;
+
+          default:
+              break;
+      }
+      std::cout << "Health     : " << curr->health << std::endl;
+      std::cout << "Max Health : " << curr->max_h << std::endl;
+      std::cout << "Arrows     : " << curr->arrows << std::endl;
     std::cout << std::endl;
     pprint_helper(start, current->next);
   }
