@@ -1,0 +1,44 @@
+#IncludeRegexLine: ^[ 	]*[#%][ 	]*(include|import)[ 	]*[<"]([^">]+)([">])
+
+#IncludeRegexScan: ^.*$
+
+#IncludeRegexComplain: ^$
+
+#IncludeRegexTransform: 
+
+C:/Users/Troll/Google Drive/School/Classes/Fall 2019/Data Structures/Group Project/Data-Stuctures-Final/doubleLL.h
+cstdio
+-
+cstdlib
+-
+iostream
+-
+player.h
+C:/Users/Troll/Google Drive/School/Classes/Fall 2019/Data Structures/Group Project/Data-Stuctures-Final/player.h
+
+C:/Users/Troll/Google Drive/School/Classes/Fall 2019/Data Structures/Group Project/Data-Stuctures-Final/main.cpp
+iostream
+-
+doubleLL.h
+C:/Users/Troll/Google Drive/School/Classes/Fall 2019/Data Structures/Group Project/Data-Stuctures-Final/doubleLL.h
+player.h
+C:/Users/Troll/Google Drive/School/Classes/Fall 2019/Data Structures/Group Project/Data-Stuctures-Final/player.h
+
+C:/Users/Troll/Google Drive/School/Classes/Fall 2019/Data Structures/Group Project/Data-Stuctures-Final/player.h
+cstdio
+-
+cstdlib
+-
+iostream
+-
+roll.h
+C:/Users/Troll/Google Drive/School/Classes/Fall 2019/Data Structures/Group Project/Data-Stuctures-Final/roll.h
+
+C:/Users/Troll/Google Drive/School/Classes/Fall 2019/Data Structures/Group Project/Data-Stuctures-Final/roll.h
+iostream
+-
+stdlib.h
+-
+time.h
+-
+
