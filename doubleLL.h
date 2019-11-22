@@ -76,9 +76,7 @@ Node* addNodeNext(Node* top, Node* newNode)
       newNode->prev = top;
 
       return top;
-    }
-    else
-    {
+    } else {
       newNode->next = newNode->prev = top;
       top->next = top->prev = newNode;
 
@@ -105,17 +103,13 @@ Node* addNodePrev(Node* top, Node* newNode)
       newNode->next = top;
 
       return top;
-    }
-    else
-    {
+    } else {
       newNode->next = newNode->prev = top;
       top->next = top->prev = newNode;
 
       return top;
     }
-  }
-  else
-  {
+  } else {
     top = newNode;
 
     return top;
