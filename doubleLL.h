@@ -24,7 +24,7 @@ void pprint_helper(Node* start, Node* current);
 void pprint(Node* top);
 // delete node at any position. negative int to go backwards
 // use this when deleting player nodes when they die
-void deleteNode(Node* top, int pos);
+Node* deleteNode(Node* top, int pos);
 // recursive helper function that is called by validateList, similar to pprint
 void validateList_helper(Node* start, Node* current);
 // attempts to traverse list for testing purposes
@@ -39,33 +39,28 @@ Node* getNewNode(void)
 
   return newNode;
 }
-Node* deleteNode(Node* top, int pos, bool check = 0) 
+Node* deleteCurrent(Node* top)
 {
-    Node *temp;
-  if (check == 0 && pos == 0)
-  {
-    temp = top->next;
-    free(top);
-    return temp;
-  }
-  else if (check == 0 && pos != 0)
-  {
-    temp = top;
-  }
-  if (pos > 0)
-  {
-    deleteNode(top->next, pos - 1, 1);
-  }
-  else if (pos < 0)
-  {
-    deleteNode(top->prev, pos + 1, 1);
-  }
-  else
-  {
+    Node* temp = top->next;
     top->prev->next = top->next;
     top->next->prev = top->prev;
     free(top);
     return temp;
+}
+Node* deleteNode(Node* top, int pos) 
+{
+  if (top != NULL)
+  {
+    if (pos > 0)
+    {
+      deleteNode(top->next, pos - 1);
+    } else if (pos < 0) {
+      deleteNode(top->prev, pos + 1);
+    } else {
+      return deleteCurrent(top);
+    }
+  } else {
+    return NULL;
   }
 }
 Node* addNodeNext(Node* top, Node* newNode)
@@ -173,13 +168,16 @@ void validateList_helper(Node* start, Node* current)
 int isDead(Node *player, Node *temp, int pos) {
     int currentDead = 0;//if the current player is dead then 1. is necessary because its a special case where we must
     // move to next turn instantly afterwards
+
     if (temp->data->health <= 0) {
         if (pos == 0) {
             currentDead = 1;
-            deleteNode(player, pos, 1);
+            std::cout << "\nremoving player" << endl;
+            deleteNode(player, pos);
         } else {
             currentDead = 0;
-            deleteNode(player, pos, 0);
+            std::cout << "\nremoving player" << endl;
+            deleteNode(player, pos);
         }
         cout << "\nPlayer " << player->data->number << " died\n";
 
@@ -210,12 +208,11 @@ void makeMove(Node *player) {
         for (int i = 0; i < 6; i++) {
             switch (die[i]) {
                 case arrow:
-
                     //cout << "\n Arrow\n";
-                    player->data->arrows += 1;
                     TOTAL_ARROWS -= 1;
-                    if (TOTAL_ARROWS == 0) {//when arrows run out have indians attack
-                        // cout << "\n\t\tBETTTTT\n";
+                    player->data->arrows += 1;
+                    if (TOTAL_ARROWS <= 0) {//when arrows run out have indians attack
+                       // cout << "\n\t\tBETTTTT\n";
                         temp = player;
                         int pos = 1;
                         while (temp->next != player) {
@@ -231,7 +228,7 @@ void makeMove(Node *player) {
                     }
                     break;
                 case dynamite:
-                    // cout << "\n Dynamite\n";
+                   // cout << "\n Dynamite\n";
                     keepDice[i] = 1;
                     numDynamite++;
                     if (numDynamite >= 3) {
