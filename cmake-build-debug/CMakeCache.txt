@@ -156,7 +156,7 @@ CMAKE_PROJECT_DESCRIPTION:STATIC=
 CMAKE_PROJECT_HOMEPAGE_URL:STATIC=
 
 //Value Computed by CMake
-CMAKE_PROJECT_NAME:STATIC=Data-Structures-Final
+CMAKE_PROJECT_NAME:STATIC=Data-Structres-Final
 
 //Path to a program.
 CMAKE_RANLIB:FILEPATH=C:/Program Files (x86)/mingw-w64/i686-8.1.0-posix-dwarf-rt_v6-rev0/mingw32/bin/ranlib.exe
@@ -239,6 +239,12 @@ CMAKE_STRIP:FILEPATH=C:/Program Files (x86)/mingw-w64/i686-8.1.0-posix-dwarf-rt_
 CMAKE_VERBOSE_MAKEFILE:BOOL=FALSE
 
 //Value Computed by CMake
+Data-Structres-Final_BINARY_DIR:STATIC=C:/Users/Troll/Google Drive/School/Classes/Fall 2019/Data Structures/Group Project/Data-Stuctures-Final/cmake-build-debug
+
+//Value Computed by CMake
+Data-Structres-Final_SOURCE_DIR:STATIC=C:/Users/Troll/Google Drive/School/Classes/Fall 2019/Data Structures/Group Project/Data-Stuctures-Final
+
+//Value Computed by CMake
 Data-Structures-Final_BINARY_DIR:STATIC=C:/Users/Troll/Google Drive/School/Classes/Fall 2019/Data Structures/Group Project/Data-Stuctures-Final/cmake-build-debug
 
 //Value Computed by CMake
@@ -249,6 +255,12 @@ Group_Project_BINARY_DIR:STATIC=C:/Users/Troll/Google Drive/School/Classes/Fall 
 
 //Value Computed by CMake
 Group_Project_SOURCE_DIR:STATIC=C:/Users/Troll/Google Drive/School/Classes/Fall 2019/Data Structures/Group Project/Data-Stuctures-Final
+
+//Value Computed by CMake
+Project_BINARY_DIR:STATIC=C:/Users/Troll/Google Drive/School/Classes/Fall 2019/Data Structures/Group Project/Data-Stuctures-Final/cmake-build-debug
+
+//Value Computed by CMake
+Project_SOURCE_DIR:STATIC=C:/Users/Troll/Google Drive/School/Classes/Fall 2019/Data Structures/Group Project/Data-Stuctures-Final
 
 
 ########################

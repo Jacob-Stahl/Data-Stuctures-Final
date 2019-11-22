@@ -3,7 +3,7 @@
 #include "player.h"
 
 using namespace std;
-//BEEEEEEEEEEEEEEEEEEEE
+//BEEEEEEEEEEEEEEEEEEEEEEEEE
 
 // generates double circular linked list of nodes, returns the sheriff at the startinf position
 
