@@ -25,7 +25,7 @@ Dice diceCup[6];
 void printDice(Dice (&die)[6]);
 
 //initall roll of the dice takes an array of ints and randomly rolls them and displays what was rolled
-void roll(Dice (&die)[6]) {
+void roll(Dice (&die)[6]) {//Changed from traversal by pointer to array index because this makes debugging easier
     Dice *dice;
 
     string action;
