@@ -24,7 +24,7 @@ void pprint_helper(Node* start, Node* current);
 void pprint(Node* top);
 // delete node at any position. negative int to go backwards
 // use this when deleting player nodes when they die
-Node* deleteNode(Node* top, int pos);
+void deleteNode(Node* top, int pos);
 // recursive helper function that is called by validateList, similar to pprint
 void validateList_helper(Node* start, Node* current);
 // attempts to traverse list for testing purposes
@@ -39,15 +39,13 @@ Node* getNewNode(void)
 
   return newNode;
 }
-Node* deleteCurrent(Node* top)
+void deleteCurrent(Node* top)
 {
-    Node* temp = top->next;
     top->prev->next = top->next;
     top->next->prev = top->prev;
     free(top);
-    return temp;
 }
-Node* deleteNode(Node* top, int pos) 
+void deleteNode(Node* top, int pos) 
 {
   if (top != NULL)
   {
@@ -57,10 +55,8 @@ Node* deleteNode(Node* top, int pos)
     } else if (pos < 0) {
       deleteNode(top->prev, pos + 1);
     } else {
-      return deleteCurrent(top);
+      deleteCurrent(top);
     }
-  } else {
-    return NULL;
   }
 }
 Node* addNodeNext(Node* top, Node* newNode)

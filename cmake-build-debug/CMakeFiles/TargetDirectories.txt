@@ -1,3 +1,0 @@
-C:/Users/Troll/Google Drive/School/Classes/Fall 2019/Data Structures/Group Project/Data-Stuctures-Final/cmake-build-debug/CMakeFiles/Data-Structures-Final.dir
-C:/Users/Troll/Google Drive/School/Classes/Fall 2019/Data Structures/Group Project/Data-Stuctures-Final/cmake-build-debug/CMakeFiles/edit_cache.dir
-C:/Users/Troll/Google Drive/School/Classes/Fall 2019/Data Structures/Group Project/Data-Stuctures-Final/cmake-build-debug/CMakeFiles/rebuild_cache.dir
