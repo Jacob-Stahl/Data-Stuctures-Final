@@ -202,12 +202,14 @@ int isDead(Node *player, Node *temp, int pos) {
         if (pos == 0) {
             currentDead = 1;
             std::cout << "\nremoving player" << endl;
+            TOTAL_ARROWS += player->data->arrows;
             temp = player->prev;
             deleteNode(player, pos);
             player = temp;
         } else {
             currentDead = 0;
             std::cout << "\nremoving player" << endl;
+            TOTAL_ARROWS += player->data->arrows;
             deleteNode(player, pos);
         }
         cout << "\nPlayer " << player->data->number << " died\n";
@@ -215,7 +217,11 @@ int isDead(Node *player, Node *temp, int pos) {
     }
     return currentDead;
 }
-
+//void beerChoice(Node *player){
+//    if(player->type == deputy ){
+//
+//    }
+//}
 
 void makeMove(Node *player) {
     Dice die[6];
