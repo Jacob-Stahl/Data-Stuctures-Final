@@ -1,3 +1,6 @@
+//Group: The Alpha Squad
+//Members: Matthew Guthrie, Andrew Majors, Jacob Stahl
+
 #include <iostream>
 #include "doubleLL.h"
 #include "player.h"

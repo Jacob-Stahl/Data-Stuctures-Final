@@ -2,8 +2,12 @@
 #include <cstdlib>
 #include <iostream>
 #include "player.h"
+
 #ifndef LAB_5_DOUBLELL_H
 #define LAB_5_DOUBLELL_H
+
+int list = 0;
+Player* badGuy[10];
 
 struct Node
 {
@@ -12,6 +16,8 @@ struct Node
     Node* prev;
 };
 
+
+void ONEShot(Node* player);
 // returns new Node
 Node* getNewNode(void);
 // add node to next position
@@ -280,18 +286,9 @@ void makeMove(Node *player) {
                     keep = rand() % 2;
                     if (keep) {
                         keepDice[i] = 1;
-                        leftOrRight = rand() % 2;
-                        if (leftOrRight) {
-                            player->prev->data->health--;
-                            if (isDead(player, player->prev, -1)) {
-                                return;
-                            }
-                        } else {
-                            player->next->data->health--;
-                            if (isDead(player, player->next, 1)) {
-                                return;
-                            }
-                        }
+                        ONEShot(player);
+                        if (isDead(player, player->next, 1)) 
+                             return;
                     }
 
                     break;
@@ -369,5 +366,186 @@ void makeMove(Node *player) {
             }
         }
     }
+}
+
+
+
+void ONEShot(Node* player)//input player instead of k
+{
+  int index = 0;
+  if(player->data->type == sheriff || player->data->type == deputy)
+  {
+    if(1)
+    {
+    while(badGuy[index] != NULL)
+    {
+      if(player->next->data == badGuy[index])
+        player->next->data->health--;
+      else if(player->prev->data == badGuy[index])
+        player->prev->data->health--;
+      
+      index++;
+
+      
+    }
+    }
+    else
+      {
+        
+        if(player->next->data->type != sheriff)
+          player->next->data->health--;
+        else
+          player->prev->data->health--;
+      }
+
+  }
+
+  else if(player->data->type == outlaw)
+  {
+     if(player->next->data->type == sheriff)
+     {
+      player->next->data->health--;
+      badGuy[list] = player->data;
+      list++;
+     }
+     else if(player->prev->data->type == sheriff)
+     {
+        player->prev->data->health--;
+        badGuy[list] = player->data;
+        list++;
+     }
+     else
+      {
+        index = rand() % 2;
+        if(index == 1)
+          player->next->data->health--;
+        else
+          player->prev->data->health--;
+      }
+      
+  }
+
+  else if(player->data->type == rene)
+  {
+    if(player->next->data->type != sheriff)
+      player->next->data->health--;
+    else if(player->prev->data->type != sheriff)
+      player->prev->data->health--;
+      
+    else
+      {
+        index = rand() % 2;
+        if(index == 1)
+        {
+          player->next->data->health--;
+          if(player ->next->data->type == sheriff)
+          {
+            badGuy[list] = player->data;
+            list++;
+          }
+        }
+        else
+        {
+          player->prev->data->health--;
+          if(player ->prev->data->type == sheriff)
+          {
+            badGuy[list] = player->data;
+            list++;
+          }
+        }
+      }
+
+  }
+
+}
+
+
+void TWOShot(Node* player)//input player instead of k
+{
+  int index = 0;
+  if(player->data->type == sheriff || player->data->type == deputy)
+  {
+    if(1)
+    {
+    while(badGuy[index] != NULL)
+    {
+      if(player->next->data == badGuy[index])
+        player->next->data->health--;
+      else if(player->prev->data == badGuy[index])
+        player->prev->data->health--;
+      
+      index++;
+
+      
+    }
+    }
+    else
+      {
+        
+        if(player->next->data->type != sheriff)
+          player->next->data->health--;
+        else
+          player->prev->data->health--;
+      }
+
+  }
+
+  else if(player->data->type == outlaw)
+  {
+     if(player->next->data->type == sheriff)
+     {
+      player->next->data->health--;
+      badGuy[list] = player->data;
+      list++;
+     }
+     else if(player->prev->data->type == sheriff)
+     {
+        player->prev->data->health--;
+        badGuy[list] = player->data;
+        list++;
+     }
+     else
+      {
+        index = rand() % 2;
+        if(index == 1)
+          player->next->data->health--;
+        else
+          player->prev->data->health--;
+      }
+      
+  }
+
+  else if(player->data->type == rene)
+  {
+    if(player->next->data->type != sheriff)
+      player->next->data->health--;
+    else if(player->prev->data->type != sheriff)
+      player->prev->data->health--;
+      
+    else
+      {
+        index = rand() % 2;
+        if(index == 1)
+        {
+          player->next->data->health--;
+          if(player ->next->data->type == sheriff)
+          {
+            badGuy[list] = player->data;
+            list++;
+          }
+        }
+        else
+        {
+          player->prev->data->health--;
+          if(player ->prev->data->type == sheriff)
+          {
+            badGuy[list] = player->data;
+            list++;
+          }
+        }
+      }
+
+  }
+
 }
 #endif //LAB_5_DOUBLELL_H
