@@ -202,7 +202,9 @@ int isDead(Node *player, Node *temp, int pos) {
         if (pos == 0) {
             currentDead = 1;
             std::cout << "\nremoving player" << endl;
+            temp = player->prev;
             deleteNode(player, pos);
+            player = temp;
         } else {
             currentDead = 0;
             std::cout << "\nremoving player" << endl;
