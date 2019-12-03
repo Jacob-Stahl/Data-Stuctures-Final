@@ -434,17 +434,23 @@ bool checkForWins(Node *top) {
     if (sheriff_ == 0) {
         if (outlaw_ > 0) {
             cout << "outlaws win!" << endl;
+            cout << "\n================================\n";
             pprint(top);
+            cout << "\n================================\n";
             exit(0);
         } else if (deputy_ == 0) {
             cout << "renegades win!" << endl;
+            cout << "\n================================\n";
             pprint(top);
+            cout << "\n================================\n";
             exit(0);
         }
     } else {
         if (outlaw_ == 0 && rene_ == 0) {
             cout << "sheriff wins!" << endl;
+            cout << "\n================================\n";
             pprint(top);
+            cout << "\n================================\n";
             exit(0);
         }
     }
