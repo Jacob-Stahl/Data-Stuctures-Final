@@ -18,6 +18,7 @@ struct Node
 
 
 void ONEShot(Node* player);
+void TWOShot(Node* player);
 // returns new Node
 Node* getNewNode(void);
 // add node to next position
@@ -290,23 +291,13 @@ void makeMove(Node *player) {
                         keep = rand() % 2;
                         if (keep) {
                             keepDice[i] = 1;
-                            leftOrRight = rand() % 2;
-                            if (leftOrRight) {
-                                player->prev->data->health--;
-                                std::cout << "Player " << player->data->number << " Shot Player "
-                                          << player->prev->data->number << std::endl;
-                                if (isDead(player, player->prev, -1)) {
-                                    return;
-                                }
-                            } else {
-                                player->next->data->health--;
-                                std::cout << "Player " << player->data->number << " Shot Player "
-                                          << player->next->data->number << std::endl;
-                                if (isDead(player, player->next, 1)) {
-                                    return;
-                                }
-                            }
+                            ONEShot(player);
+                            if (isDead(player, player->next, 1)) 
+                                        return;
+                            if (isDead(player, player->prev, -1)) 
+                                        return;
                         }
+
 
                         break;
                     case twoShot:
@@ -314,41 +305,23 @@ void makeMove(Node *player) {
                         keep = rand() % 2;
                         if (keep) {
                             keepDice[i] = 1;
-                            leftOrRight = rand() % 1;
+                            
                             if (player->next->next != player) {//makes sure the player does not shoot himself
-                                if (leftOrRight) {
-                                    player->prev->prev->data->health--;
-                                    std::cout << "Player " << player->data->number << " Shot Player "
-                                              << player->prev->prev->data->number << std::endl;
-                                    if (isDead(player, player->prev->prev, -2)) {
+                                TWOShot(player);
+                                if (isDead(player, player->next->next, 2)) 
                                         return;
-                                    }
-                                } else {
-                                    player->next->next->data->health--;
-                                    std::cout << "Player " << player->data->number << " Shot Player "
-                                              << player->next->next->data->number << std::endl;
-                                    if (isDead(player, player->next->next, 2)) {
+                                if (isDead(player, player->prev->prev, -2)) 
                                         return;
-                                    }
-                                }
                             } else {
-                                if (leftOrRight) {
-                                    std::cout << "Player " << player->data->number << " Shot Player "
-                                              << player->prev->data->number << std::endl;
-                                    player->prev->data->health--;
-                                    if (isDead(player, player->prev, -1)) {
+                                
+                                ONEShot(player);
+                                if (isDead(player, player->next, 1)) 
                                         return;
-                                    }
-                                } else {
-                                    std::cout << "Player " << player->data->number << " Shot Player "
-                                              << player->next->data->number << std::endl;
-                                    player->next->data->health--;
-                                    if (isDead(player, player, 0)) {
+                                if (isDead(player, player->prev, -1)) 
                                         return;
-                                    }
-                                }
                             }
                         }
+                            
                         break;
                     case beer:
                         //cout << "\n beer\n";
@@ -558,10 +531,10 @@ void TWOShot(Node* player)//input player instead of k
     {
     while(badGuy[index] != NULL)
     {
-      if(player->next->data == badGuy[index])
-        player->next->data->health--;
-      else if(player->prev->data == badGuy[index])
-        player->prev->data->health--;
+      if(player->next->next->data == badGuy[index])
+        player->next->next->data->health--;
+      else if(player->prev->prev->data == badGuy[index])
+        player->prev->prev->data->health--;
 
       index++;
 
@@ -571,25 +544,25 @@ void TWOShot(Node* player)//input player instead of k
     else
       {
 
-        if(player->next->data->type != sheriff)
-          player->next->data->health--;
+        if(player->next->next->data->type != sheriff)
+          player->next->next->data->health--;
         else
-          player->prev->data->health--;
+          player->prev->prev->data->health--;
       }
 
   }
 
   else if(player->data->type == outlaw)
   {
-     if(player->next->data->type == sheriff)
+     if(player->next->next->data->type == sheriff)
      {
-      player->next->data->health--;
+      player->next->next->data->health--;
       badGuy[list] = player->data;
       list++;
      }
-     else if(player->prev->data->type == sheriff)
+     else if(player->prev->prev->data->type == sheriff)
      {
-        player->prev->data->health--;
+        player->prev->prev->data->health--;
         badGuy[list] = player->data;
         list++;
      }
@@ -597,27 +570,27 @@ void TWOShot(Node* player)//input player instead of k
       {
         index = rand() % 2;
         if(index == 1)
-          player->next->data->health--;
+          player->next->next->data->health--;
         else
-          player->prev->data->health--;
+          player->prev->prev->data->health--;
       }
 
   }
 
   else if(player->data->type == rene)
   {
-    if(player->next->data->type != sheriff)
-      player->next->data->health--;
-    else if(player->prev->data->type != sheriff)
-      player->prev->data->health--;
+    if(player->next->next->data->type != sheriff)
+      player->next->next->data->health--;
+    else if(player->prev->prev->data->type != sheriff)
+      player->prev->prev->data->health--;
 
     else
       {
         index = rand() % 2;
         if(index == 1)
         {
-          player->next->data->health--;
-          if(player ->next->data->type == sheriff)
+          player->next->next->data->health--;
+          if(player ->next->next->data->type == sheriff)
           {
             badGuy[list] = player->data;
             list++;
@@ -625,8 +598,8 @@ void TWOShot(Node* player)//input player instead of k
         }
         else
         {
-          player->prev->data->health--;
-          if(player ->prev->data->type == sheriff)
+          player->prev->prev->data->health--;
+          if(player ->prev->prev->data->type == sheriff)
           {
             badGuy[list] = player->data;
             list++;
