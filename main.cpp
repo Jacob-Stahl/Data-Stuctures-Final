@@ -30,7 +30,7 @@ output: Player* checkForWins
 purpose: check to see which team won if any
 */
 // generates double circular linked list of nodes, returns the sheriff at the startinf position
-bool checkForWins(Node *top);
+
 
 int main()
 {
@@ -176,58 +176,4 @@ Node* generateGame(int numPlayers)
 		top = addNodeNext(top, newNode);
 	}
 	return top;
-}
-bool checkForWins(Node *top) {
-    Node *ptr;
-    int rene_ = 0, sheriff_ = 0, outlaw_ = 0, deputy_ = 0;
-
-    ptr = top->next;
-
-    switch (top->data->type) {
-        case rene:
-            rene_ += 1;
-            break;
-        case sheriff:
-            sheriff_ += 1;
-            break;
-        case outlaw:
-            outlaw_ += 1;
-            break;
-        case deputy:
-            deputy_ += 1;
-            break;
-    }
-    while (ptr != top) {
-        switch (ptr->data->type) {
-            case rene:
-                rene_ += 1;
-                break;
-            case sheriff:
-                sheriff_ += 1;
-                break;
-            case outlaw:
-                outlaw_ += 1;
-                break;
-            case deputy:
-                deputy_ += 1;
-                break;
-        }
-        ptr = ptr->next;
-    }
-
-    if (sheriff_ == 0) {
-        if (outlaw_ > 0) {
-            cout << "outlaws win!" << endl;
-            return 1;
-        } else if (deputy_ == 0) {
-            cout << "renegades win!" << endl;
-            return 1;
-        }
-    } else {
-        if (outlaw_ == 0 && rene_ == 0) {
-            cout << "sheriff!" << endl;
-            return 1;
-        }
-    }
-    return 0;
 }
