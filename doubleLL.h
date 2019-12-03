@@ -199,7 +199,7 @@ void validateList_helper(Node* start, Node* current)
 int isDead(Node *player, Node *temp, int pos) {
     int currentDead = 0;//if the current player is dead then 1. is necessary because its a special case where we must
     // move to next turn instantly afterwards
-
+    int playerNum = temp->data->number;
     if (temp->data->health <= 0) {
         if (pos == 0) {
             currentDead = 1;
@@ -214,7 +214,7 @@ int isDead(Node *player, Node *temp, int pos) {
             TOTAL_ARROWS += player->data->arrows;
             deleteNode(player, pos);
         }
-        cout << "\nPlayer " << player->data->number << " died\n";
+        cout << "\nPlayer " << playerNum << " died\n";
 
     }
     checkForWins(player);
