@@ -121,6 +121,7 @@ void reroll(Dice *dP, int *test) {
         }
         // cout << endl << "player has a " << action << " on dice " << k + 1;
     }
+    cout << endl;
 
 }
 

@@ -258,14 +258,15 @@ void makeMove(Node *player) {
                         TOTAL_ARROWS -= 1;
                         player->data->arrows += 1;
                         if (TOTAL_ARROWS <= 0) {//when arrows run out have indians attack
-                            cout << "INDIANS ATTACK\n";
+                            cout << "\nINDIANS ATTACK\n";
                             temp = player;
                             int pos = 1;
                             while (temp->next != player) {
                                 temp->data->health -= temp->data->arrows;
                                 temp->data->arrows = 0;
+                                Node *temp1 = temp->prev;
                                 if (isDead(player, temp, pos)) {//returns 1 only if the current player is dead;
-                                    return;
+                                    temp = temp1;
                                 }
                                 temp = temp->next;
                                 pos += 1;
