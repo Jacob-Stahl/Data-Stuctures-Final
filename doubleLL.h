@@ -3,35 +3,34 @@
 #include <stdlib.h>
 #include <iostream>
 #include "player.h"
-
 #ifndef LAB_5_DOUBLELL_H
 #define LAB_5_DOUBLELL_H
 
-struct Node {
-    Player *data;
-    Node *next;
-    Node *prev;
+int list = 0;
+Player* badGuy[10];
+
+struct Node
+{
+    Player* data;
+    Node* next;
+    Node* prev;
 };
 
+
+void ONEShot(Node* player);
 // returns new Node
-Node *getNewNode(void);
-
+Node* getNewNode(void);
 // add node to next position
-Node *addNodeNext(Node *top, Node *newNode);
-
+Node* addNodeNext(Node* top, Node* newNode);
 // add node to previous position
-Node *addNodePrev(Node *top, Node *newNode);
-
+Node* addNodePrev(Node* top, Node* newNode);
 // recursive helper function used by pprint
-void pprint_helper(Node *start, Node *current);
-
+void pprint_helper(Node* start, Node* current);
 // prints all nodes and player data
-void pprint(Node *top);
-
+void pprint(Node* top);
 // delete node at any position. negative int to go backwards
 // use this when deleting player nodes when they die
-void deleteNode(Node *top, int pos);
-
+void deleteNode(Node* top, int pos);
 // recursive helper function that is called by validateList, similar to pprint
 void validateList_helper(Node *start, Node *current);
 
@@ -99,25 +98,26 @@ Node *addNodePrev(Node *top, Node *newNode) {
             top->prev = newNode;
             newNode->next = top;
 
-            return top;
-        } else {
-            newNode->next = newNode->prev = top;
-            top->next = top->prev = newNode;
-
-            return top;
-        }
+      return top;
     } else {
-        top = newNode;
+      newNode->next = newNode->prev = top;
+      top->next = top->prev = newNode;
 
-        return top;
+      return top;
     }
+  } else {
+    top = newNode;
+
+    return top;
+  }
 }
 
 //prints first player and then calls recursive function to do the rest
-void pprint(Node *top) {
-    Player *curr;
-    curr = top->data;
-    std::cout << "player     : " << curr->number << std::endl;
+void pprint(Node* top)
+{
+  Player* curr;
+  curr = top->data;
+  std::cout << "player     : " << curr->number << std::endl;
     switch (curr->type) {
         case rene:
             std::cout << "Type       : Renagade" << std::endl;
@@ -138,66 +138,68 @@ void pprint(Node *top) {
         default:
             break;
     }
-    std::cout << "health     : " << curr->health << std::endl;
-    std::cout << "max health : " << curr->max_h << std::endl;
-    std::cout << "arrows     : " << curr->arrows << std::endl;
+  std::cout << "health     : " << curr->health << std::endl;
+  std::cout << "max health : " << curr->max_h << std::endl;
+  std::cout << "arrows     : " << curr->arrows << std::endl;
+  std::cout << std::endl;
+  pprint_helper(top, top->next);
+}
+void pprint_helper(Node* start, Node* current)
+{
+  if (current != start)
+  {
+    Player* curr;
+    curr = current->data;
+      std::cout << "Player     : " << curr->number << std::endl;
+      switch (curr->type) {
+          case rene:
+              std::cout << "Type       : Renagade" << std::endl;
+              break;
+
+          case sheriff:
+              std::cout << "Type       : Sheriff" << std::endl;
+              break;
+
+          case outlaw:
+              std::cout << "Type       : Outlaw" << std::endl;
+              break;
+
+          case deputy:
+              std::cout << "Type       : Deputy" << std::endl;
+              break;
+
+          default:
+              break;
+      }
+      std::cout << "Health     : " << curr->health << std::endl;
+      std::cout << "Max Health : " << curr->max_h << std::endl;
+      std::cout << "Arrows     : " << curr->arrows << std::endl;
     std::cout << std::endl;
-    pprint_helper(top, top->next);
+    pprint_helper(start, current->next);
+  }
 }
-
-void pprint_helper(Node *start, Node *current) {
-    if (current != start) {
-        Player *curr;
-        curr = current->data;
-        std::cout << "Player     : " << curr->number << std::endl;
-        switch (curr->type) {
-            case rene:
-                std::cout << "Type       : Renagade" << std::endl;
-                break;
-
-            case sheriff:
-                std::cout << "Type       : Sheriff" << std::endl;
-                break;
-
-            case outlaw:
-                std::cout << "Type       : Outlaw" << std::endl;
-                break;
-
-            case deputy:
-                std::cout << "Type       : Deputy" << std::endl;
-                break;
-
-            default:
-                break;
-        }
-        std::cout << "Health     : " << curr->health << std::endl;
-        std::cout << "Max Health : " << curr->max_h << std::endl;
-        std::cout << "Arrows     : " << curr->arrows << std::endl;
-        std::cout << std::endl;
-        pprint_helper(start, current->next);
-    }
+void validateList(Node* top)
+{
+  std::cout << top->prev << "   ";
+  std::cout << top << "   ";
+  std::cout << top->next << std::endl;
+  validateList_helper(top, top->next);
 }
-
-void validateList(Node *top) {
-    std::cout << top->prev << "   ";
-    std::cout << top << "   ";
-    std::cout << top->next << std::endl;
-    validateList_helper(top, top->next);
-}
-
-void validateList_helper(Node *start, Node *current) {
-    if (current != start) {
-        std::cout << current->prev << "   ";
-        std::cout << current << "   ";
-        std::cout << current->next << std::endl;
-        validateList_helper(start, current->next);
-    }
+void validateList_helper(Node* start, Node* current)
+{
+  if (current != start)
+  {
+  std::cout << current->prev << "   ";
+  std::cout << current << "   ";
+  std::cout << current->next << std::endl;
+  validateList_helper(start, current->next);
+  }
 }
 
 int isDead(Node *player, Node *temp, int pos) {
     int currentDead = 0;//if the current player is dead then 1. is necessary because its a special case where we must
     // move to next turn instantly afterwards
-    int playerNum = temp->data->number;
+
     if (temp->data->health <= 0) {
         if (pos == 0) {
             currentDead = 1;
@@ -212,7 +214,7 @@ int isDead(Node *player, Node *temp, int pos) {
             TOTAL_ARROWS += player->data->arrows;
             deleteNode(player, pos);
         }
-        cout << "\nPlayer " << playerNum << " died\n";
+        cout << "\nPlayer " << player->data->number << " died\n";
 
     }
     checkForWins(player);
@@ -446,4 +448,184 @@ bool checkForWins(Node *top) {
     return 0;
 }
 
+
+
+void ONEShot(Node* player)//input player instead of k
+{
+  int index = 0;
+  if(player->data->type == sheriff || player->data->type == deputy)
+  {
+    if(1)
+    {
+    while(badGuy[index] != NULL)
+    {
+      if(player->next->data == badGuy[index])
+        player->next->data->health--;
+      else if(player->prev->data == badGuy[index])
+        player->prev->data->health--;
+
+      index++;
+
+
+    }
+    }
+    else
+      {
+
+        if(player->next->data->type != sheriff)
+          player->next->data->health--;
+        else
+          player->prev->data->health--;
+      }
+
+  }
+
+  else if(player->data->type == outlaw)
+  {
+     if(player->next->data->type == sheriff)
+     {
+      player->next->data->health--;
+      badGuy[list] = player->data;
+      list++;
+     }
+     else if(player->prev->data->type == sheriff)
+     {
+        player->prev->data->health--;
+        badGuy[list] = player->data;
+        list++;
+     }
+     else
+      {
+        index = rand() % 2;
+        if(index == 1)
+          player->next->data->health--;
+        else
+          player->prev->data->health--;
+      }
+
+  }
+
+  else if(player->data->type == rene)
+  {
+    if(player->next->data->type != sheriff)
+      player->next->data->health--;
+    else if(player->prev->data->type != sheriff)
+      player->prev->data->health--;
+
+    else
+      {
+        index = rand() % 2;
+        if(index == 1)
+        {
+          player->next->data->health--;
+          if(player ->next->data->type == sheriff)
+          {
+            badGuy[list] = player->data;
+            list++;
+          }
+        }
+        else
+        {
+          player->prev->data->health--;
+          if(player ->prev->data->type == sheriff)
+          {
+            badGuy[list] = player->data;
+            list++;
+          }
+        }
+      }
+
+  }
+
+}
+
+
+void TWOShot(Node* player)//input player instead of k
+{
+  int index = 0;
+  if(player->data->type == sheriff || player->data->type == deputy)
+  {
+    if(1)
+    {
+    while(badGuy[index] != NULL)
+    {
+      if(player->next->data == badGuy[index])
+        player->next->data->health--;
+      else if(player->prev->data == badGuy[index])
+        player->prev->data->health--;
+
+      index++;
+
+
+    }
+    }
+    else
+      {
+
+        if(player->next->data->type != sheriff)
+          player->next->data->health--;
+        else
+          player->prev->data->health--;
+      }
+
+  }
+
+  else if(player->data->type == outlaw)
+  {
+     if(player->next->data->type == sheriff)
+     {
+      player->next->data->health--;
+      badGuy[list] = player->data;
+      list++;
+     }
+     else if(player->prev->data->type == sheriff)
+     {
+        player->prev->data->health--;
+        badGuy[list] = player->data;
+        list++;
+     }
+     else
+      {
+        index = rand() % 2;
+        if(index == 1)
+          player->next->data->health--;
+        else
+          player->prev->data->health--;
+      }
+
+  }
+
+  else if(player->data->type == rene)
+  {
+    if(player->next->data->type != sheriff)
+      player->next->data->health--;
+    else if(player->prev->data->type != sheriff)
+      player->prev->data->health--;
+
+    else
+      {
+        index = rand() % 2;
+        if(index == 1)
+        {
+          player->next->data->health--;
+          if(player ->next->data->type == sheriff)
+          {
+            badGuy[list] = player->data;
+            list++;
+          }
+        }
+        else
+        {
+          player->prev->data->health--;
+          if(player ->prev->data->type == sheriff)
+          {
+            badGuy[list] = player->data;
+            list++;
+          }
+        }
+      }
+
+  }
+
+}
 #endif //LAB_5_DOUBLELL_H

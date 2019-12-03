@@ -3,7 +3,6 @@
 #include <iostream>
 #include "roll.h"
 
-
 #ifndef PLAYER_H
 #define PLAYER_H
 
@@ -18,6 +17,4 @@ struct Player {
     int arrows;
     PlayerType type;
 };
-
-
 #endif
