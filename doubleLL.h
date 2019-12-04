@@ -17,8 +17,13 @@ struct Node
 };
 
 
+void giveBeer(Node* player, int q, int keepDice[]);
+//function to implement non random use of beer roll depending on player role
+
 void ONEShot(Node* player);
+//function to implement non random use of one shot roll depending on player role
 void TWOShot(Node* player);
+//function to implement non random use of two shot roll depending on player role
 // returns new Node
 Node* getNewNode(void);
 // add node to next position
@@ -326,13 +331,14 @@ void makeMove(Node *player) {
                         break;
                     case beer:
                         //cout << "\n beer\n";
-                        if (player->data->health != player->data->max_h) {//cannot go over max health
-                            keep = rand() % 2;
-                            if (keep) {
-                                keepDice[i] = 1;
-                                player->data->health++;
-                            }
-                        }
+
+
+
+
+                        giveBeer(player, i, keepDice);
+
+
+
                         break;
                     case gatGun:
                         //cout << "\n gatGun\n";
@@ -438,7 +444,7 @@ void ONEShot(Node* player)//input player instead of k
   int index = 0;
   if(player->data->type == sheriff || player->data->type == deputy)
   {
-    if(1)
+    if(badGuy[0] != NULL)
     {
     while(badGuy[index] != NULL)
     {
@@ -528,7 +534,7 @@ void TWOShot(Node* player)//input player instead of k
   int index = 0;
   if(player->data->type == sheriff || player->data->type == deputy)
   {
-    if(1)
+    if(badGuy[0] != NULL)
     {
     while(badGuy[index] != NULL)
     {
@@ -610,5 +616,56 @@ void TWOShot(Node* player)//input player instead of k
 
   }
 
+}
+
+
+
+void giveBeer(Node* player, int q, int keepDice[])
+{
+  Node* Nsheriff = player;
+
+ 
+
+  for(int i = 0; i < 8 ; i++)
+  {
+    if(Nsheriff->data->type != sheriff)
+      Nsheriff = Nsheriff->next;
+
+  }
+  if(player->data->type == sheriff || player->data->type == deputy)
+  {
+    if(Nsheriff -> data ->max_h != Nsheriff->data->health)
+    {
+      Nsheriff->data->health++;
+      keepDice[q] = 1;
+      return;
+    }
+
+  }
+
+  if (player->data->health != player->data->max_h) 
+    {//cannot go over max health
+      
+      if (rand() % 2) 
+      {
+       keepDice[q] = 1;
+
+  if(player->data->type == rene)
+  {
+    player->data->health++;
+    
+  }
+
+
+  else if (player->data->type == outlaw)
+  {
+    
+    player->data->health++;
+  }
+
+
+      }
+
+    }
 }
 #endif //LAB_5_DOUBLELL_H
