@@ -210,11 +210,13 @@ int isDead(Node *player, Node *temp, int pos) {
         if (pos == 0) {
             currentDead = 1;
             std::cout << "\nremoving player" << endl;
+            TOTAL_ARROWS += temp->data->arrows;
             temp = player->prev;
             deleteNode(player, pos);
             player = temp;
         } else {
             currentDead = 0;
+            TOTAL_ARROWS += temp->data->arrows;
             std::cout << "\nremoving player" << endl;
             deleteNode(player, pos);
         }
@@ -234,6 +236,7 @@ void makeMove(Node *player) {
     int leftOrRight;//used when shooting players, 1 for left 0 for right
     int numDynamite = 0; //keeps track of number of dynamite that have been rolled//
     int numGat = 0; // keeps track of number of gatling gun rolls
+    int currentDead = 0;
     Node *temp;
 
     for (int j = 0; j < 3; j++) {
@@ -254,26 +257,34 @@ void makeMove(Node *player) {
             if (!keepDice[i]) {
                 switch (die[i]) {
                     case arrow:
-                        //cout << "\n Arrow\n";
+
                         TOTAL_ARROWS -= 1;
                         player->data->arrows += 1;
+
                         if (TOTAL_ARROWS <= 0) {//when arrows run out have indians attack
                             cout << "\nINDIANS ATTACK\n";
                             temp = player;
                             int pos = 1;
-                            while (temp->next != player) {
+                            do {
                                 temp->data->health -= temp->data->arrows;
                                 temp->data->arrows = 0;
                                 Node *temp1 = temp->prev;
                                 if (isDead(player, temp, pos)) {//returns 1 only if the current player is dead;
+                                    currentDead = 1;
                                     temp = temp1;
+                                    pos = -1;
+                                    player = temp->next;
                                 }
                                 temp = temp->next;
                                 pos += 1;
-                            }
+                            } while (temp != player);
                             TOTAL_ARROWS = 9;
+                            if (currentDead) {
+                                return;
+                            }
                         }
                         break;
+
                     case dynamite:
                         // cout << "\n Dynamite\n";
                         keepDice[i] = 1;
@@ -333,13 +344,12 @@ void makeMove(Node *player) {
                         if (keep) {
                             keepDice[i] = 1;
                             numGat++;
-                            TOTAL_ARROWS += player->data->arrows; //add arrows back to pile
-                            player->data->arrows = 0;
-
                             if (numGat == 3) {
                                 temp = player;
                                 temp = temp->next;
                                 int pos = 1;
+                                TOTAL_ARROWS += player->data->arrows; //add arrows back to pile
+                                player->data->arrows = 0;
                                 while (temp != player) {//iterate through players and subtract a life point from each
                                     temp->data->health--;
                                     if (isDead(player, temp, pos)) {
